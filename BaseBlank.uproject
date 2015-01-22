@@ -1,0 +1,18 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{DC1F845D-406B-E7CC-1FB7-28AE4380AED5}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "BaseBlank",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "BaseBlankEditor",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	]
+}
