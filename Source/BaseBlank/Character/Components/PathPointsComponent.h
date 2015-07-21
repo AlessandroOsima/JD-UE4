@@ -17,10 +17,10 @@ class BASEBLANK_API UPathPointsComponent : public UBaseCharacterComponent
     
 public:
     
-    UFUNCTION(BlueprintCallable, Category="JD,Path Points")
+    UFUNCTION(BlueprintCallable, Category="JD|Path Points")
     void SetPathPoints(TArray<AActor *> _spawnPoints);
     
-    UFUNCTION(BlueprintCallable, Category="JD,Path Points")
+    UFUNCTION(BlueprintCallable, Category="JD|Path Points")
     TArray<AActor *> GetPathPoints();
     
 };

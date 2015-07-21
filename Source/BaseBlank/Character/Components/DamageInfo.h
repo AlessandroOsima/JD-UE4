@@ -14,7 +14,7 @@ class UDamageInfo : public UObject
     
     public :
     
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="JD,Damage Data")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="JD|Damage Data")
     float DamageAmount = 0.f;
     
     

@@ -20,7 +20,7 @@ void ANPCController::BeginPlay()
     
     ensureMsg(BHTAsset != nullptr,TEXT("[BaseCharacter]No bht asset found"));
     
-    BlackboardComponent->InitializeBlackboard(BlackboardAsset);
+    BlackboardComponent->InitializeBlackboard(*BlackboardAsset);
     
     
     BHTComponent->StartTree(*BHTAsset);

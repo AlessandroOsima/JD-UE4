@@ -18,28 +18,26 @@ class BASEBLANK_API ULifeComponent : public UBaseCharacterComponent
 
 	UPROPERTY(EditAnywhere, Category=Logic)
     float Life = 100;
-    
-    FOnBlackboardChange m_bbKeyObserver;
-    
+        
 public:
     
     virtual void BeginPlay() override;
     
-    UFUNCTION(BlueprintCallable, Category="JD,NPC Life Management")
+    UFUNCTION(BlueprintCallable, Category="JD|NPC Life Management")
     float GetLife() const;
     
-    UFUNCTION(BlueprintCallable, Category="JD,NPC Life Management")
+    UFUNCTION(BlueprintCallable, Category="JD|NPC Life Management")
     void SetLife(float _life);
     
-    UFUNCTION(BlueprintCallable, Category="JD,NPC Life Management")
+    UFUNCTION(BlueprintCallable, Category="JD|NPC Life Management")
     void HealToFull();
     
     //Damage can be positive or negative.
-    UFUNCTION(BlueprintCallable, Category="JD,NPC Life Management")
+    UFUNCTION(BlueprintCallable, Category="JD|NPC Life Management")
     void ApplyDamage(float _damage);
     
     //Listener on the blk for damage data
-    void OnApplyDamage(const class UBlackboardComponent * _blk, FBlackboard::FKey _key);
+	EBlackboardNotificationResult OnApplyDamage(const class UBlackboardComponent & _blk, FBlackboard::FKey _key);
 	
     float GetMaxLife() const;
     

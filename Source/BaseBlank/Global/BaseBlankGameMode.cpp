@@ -59,7 +59,7 @@ void ABaseBlankGameMode::HandleMatchHasStarted()
     ListNPCS();
 }
 
-bool ABaseBlankGameMode::ReadyToEndMatch()
+bool ABaseBlankGameMode::ReadyToEndMatch_Implementation()
 {
     if(Won())
     {
@@ -77,7 +77,7 @@ bool ABaseBlankGameMode::ReadyToEndMatch()
 
 bool ABaseBlankGameMode::Lost() const
 {
-    if(SoulsManager->GetSoulsAmount() < GameModeConfig->LoseConditionSouls)
+    if(SoulsManager->GetSoulsAmount() <= GameModeConfig->LoseConditionSouls)
     {
         return true;
     }
@@ -150,6 +150,21 @@ float ABaseBlankGameMode::GetNPCSNotInState(ENPCBehaviour _state)
 float ABaseBlankGameMode::GetNPCSCount()
 {
     return m_npcs.Num();
+}
+
+FString ABaseBlankGameMode::GetEndGameDescription()
+{
+	FString description;
+	if (Lost())
+	{
+		description = "YOU LOST";
+	}
+	else
+	{
+		description = VictoryType().VictoryText;
+	}
+
+	return description;
 }
 
 FString ABaseBlankGameMode::GetCurrentLevelName()

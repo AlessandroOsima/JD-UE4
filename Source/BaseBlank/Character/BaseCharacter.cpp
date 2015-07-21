@@ -16,7 +16,11 @@ ABaseCharacter::ABaseCharacter(const class FObjectInitializer& PCIP)
     BlackboardComponent = PCIP.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackboardComponent"));
     PathPointsComponent = PCIP.CreateDefaultSubobject<UPathPointsComponent>(this, TEXT("PathPointsComponent"));
     LifeComponent = PCIP.CreateDefaultSubobject<ULifeComponent>(this, TEXT("LifeComponent"));
+	EffectComponent = PCIP.CreateDefaultSubobject<UEffectComponent>(this, TEXT("EffectComponent"));
     
+	EffectComponent->PrimaryComponentTick.bCanEverTick = true;
+	EffectComponent->PrimaryComponentTick.bStartWithTickEnabled = true;
+
     this->PrimaryActorTick.bCanEverTick = true;
     this->PrimaryActorTick.bStartWithTickEnabled = true;
 }
@@ -45,12 +49,12 @@ void ABaseCharacter::BeginPlay()
     */
     
     BlackboardComponent->RegisterComponent();
-    BlackboardComponent->InitializeBlackboard(BlackboardAsset);
+    BlackboardComponent->InitializeBlackboard(*BlackboardAsset);
     
     BHTComponent->RegisterComponent();
     BHTComponent->StartTree(*BHTAsset);
     BHTComponent->PrimaryComponentTick.bCanEverTick = true;
-    
+
     auto componentsArray = GetComponentsByClass(UBaseCharacterComponent::StaticClass());
     
     for(UActorComponent * component : componentsArray)

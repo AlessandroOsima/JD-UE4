@@ -8,6 +8,7 @@
 #include "Character/Components/DamageInfo.h"
 #include "Components/PathPointsComponent.h"
 #include "Components/LifeComponent.h"
+#include "Components/EffectComponent.h"
 #include "BaseCharacter.generated.h"
 
 /**
@@ -49,6 +50,9 @@ public:
     
     UPROPERTY(VisibleAnywhere, Category=Logic)
     ULifeComponent * LifeComponent;
+
+	UPROPERTY(VisibleAnywhere, Category=Logic)
+	UEffectComponent * EffectComponent;
     
 protected:
     static BaseCharacterBlackBoardKeys s_blackboardKeys;
@@ -63,7 +67,7 @@ public:
     BaseCharacterBlackBoardKeys GetBlackboardKeys() const;
 
     
-    UFUNCTION(BlueprintCallable, Category="JD,Damage")
+    UFUNCTION(BlueprintCallable, Category="JD|Damage")
     void ApplyDamage(UDamageInfo * _damageInfo);
 
 private:

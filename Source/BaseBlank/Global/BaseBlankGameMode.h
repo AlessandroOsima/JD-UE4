@@ -25,8 +25,8 @@ protected:
     virtual void HandleMatchIsWaitingToStart() override;
     
     virtual void HandleMatchHasStarted() override;
-        
-    virtual bool ReadyToEndMatch() override;
+
+	virtual bool ReadyToEndMatch_Implementation() override;
     
     UPROPERTY(EditDefaultsOnly, BlueprintReadonly)
     UFreeGameModeConfigurationAsset * GameModeConfig;
@@ -36,26 +36,29 @@ protected:
 
 public:
     
-    UFUNCTION(BlueprintCallable, Category="JD,Victory Conditions")
+    UFUNCTION(BlueprintCallable, Category="JD|Victory Conditions")
     bool Lost() const;
     
-    UFUNCTION(BlueprintCallable, Category="JD,Victory Conditions")
+    UFUNCTION(BlueprintCallable, Category="JD|Victory Conditions")
     bool Won() const;
     
-    UFUNCTION(BlueprintCallable, Category="JD,Victory Conditions")
+    UFUNCTION(BlueprintCallable, Category="JD|Victory Conditions")
     FVictoryConditionsInfo & VictoryType() const;
     
-    UFUNCTION(BlueprintCallable, Category="JD,Free Game Mode Info")
+    UFUNCTION(BlueprintCallable, Category="JD|Free Game Mode Info")
     float GetNPCSInState(ENPCBehaviour _state);
     
-    UFUNCTION(BlueprintCallable, Category="JD,Free Game Mode Info")
+    UFUNCTION(BlueprintCallable, Category="JD|Free Game Mode Info")
     float GetNPCSNotInState(ENPCBehaviour _state);
     
-    UFUNCTION(BlueprintCallable, Category="JD,Free Game Mode Info")
+    UFUNCTION(BlueprintCallable, Category="JD|Free Game Mode Info")
     float GetNPCSCount();
     
-    UFUNCTION(BlueprintCallable, Category="JD, LevelInfo")
+    UFUNCTION(BlueprintCallable, Category="JD|Level Info")
     FString GetCurrentLevelName();
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Level Info")
+	FString GetEndGameDescription();
     
 private:
     

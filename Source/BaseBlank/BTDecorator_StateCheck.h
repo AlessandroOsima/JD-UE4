@@ -21,7 +21,7 @@ public:
     UBTDecorator_StateCheck(const class FObjectInitializer& PCIP);
     
 protected:
-    virtual bool CanEnterInState(ABaseCharacter * _target, class UBehaviorTreeComponent * _ownerComp) const override;
+    virtual bool CanEnterInState(ABaseCharacter * _target, class UBehaviorTreeComponent & _ownerComp) const override;
 	virtual FString GetStaticDescription() const override;
 	
 };

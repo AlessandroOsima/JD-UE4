@@ -32,7 +32,7 @@ public :
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Spawn")
     TSubclassOf<ABaseCharacter> CharacterToSpawn;
     
-    UFUNCTION(BlueprintCallable, Category="JD,Spawn Character")
+    UFUNCTION(BlueprintCallable, Category="JD|Spawn Character")
     void Spawn();
 	
 };

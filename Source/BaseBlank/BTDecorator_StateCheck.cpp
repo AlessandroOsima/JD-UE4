@@ -10,7 +10,7 @@ UBTDecorator_StateCheck::UBTDecorator_StateCheck(const class FObjectInitializer&
 }
 
 
-bool UBTDecorator_StateCheck::CanEnterInState(ABaseCharacter *_target, class UBehaviorTreeComponent *_ownerComp) const
+bool UBTDecorator_StateCheck::CanEnterInState(ABaseCharacter *_target, class UBehaviorTreeComponent & _ownerComp) const
 {
     bool canEnter = false;
     UBehaviourComponent * cmp = GetBehaviourComponent(_ownerComp);
@@ -27,8 +27,9 @@ FString UBTDecorator_StateCheck::GetStaticDescription() const
 {
     FString name = FString("Invalid");
     
-    const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENPCBehaviour"), true);
+    const UEnum * EnumPtr = FindObject<UEnum>(ANY_PACKAGE, TEXT("ENPCBehaviour"), true);
     
+
     if(EnumPtr)
     {
        name = EnumPtr->GetEnumName((int8)BehaviourToEnter);

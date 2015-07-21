@@ -37,19 +37,25 @@ public:
     TSubclassOf<UPowerWidget> PowerWidget;
    
 public:
-    virtual bool CanUse()
-    {
-        return false;
-    }
+
+	UFUNCTION(BlueprintNativeEvent, Category = "JD, Powers")
+	bool CanUse();
     
-    virtual void Use() {}
+	UFUNCTION(BlueprintNativeEvent, Category = "JD, Powers")
+	void Use();
     
-    virtual void StartUse() {}
+	UFUNCTION(BlueprintNativeEvent, Category = "JD, Powers")
+	void Selecting();
     
-    virtual void EndUse() {}
-    
-    virtual void Selecting() {}
-    
-    virtual void UnSelecting() {}
-    
+	UFUNCTION(BlueprintNativeEvent, Category = "JD, Powers")
+	void UnSelecting();    
+
+	UFUNCTION(BlueprintCallable, Category = "JD, Powers")
+	void SpendSouls();
+
+	UFUNCTION(BlueprintCallable, Category = "JD, Powers")
+	bool CanSpendWithoutLosing();
+
+	
 };
+

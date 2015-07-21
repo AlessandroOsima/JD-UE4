@@ -26,9 +26,9 @@ FString UBTDecorator_BaseStateCheck::GetStaticDescription() const
     return FString::Printf(TEXT("State %s"), NodeName.GetCharArray().GetData());
 }
 
-bool UBTDecorator_BaseStateCheck::CalculateRawConditionValue(class UBehaviorTreeComponent *_ownerComp, uint8 *_nodeMemory) const
+bool UBTDecorator_BaseStateCheck::CalculateRawConditionValue(class UBehaviorTreeComponent &_ownerComp, uint8 *_nodeMemory) const
 {
-    UBlackboardComponent * blk = _ownerComp->GetBlackboardComponent();
+    UBlackboardComponent * blk = _ownerComp.GetBlackboardComponent();
     
     check(blk);
     
@@ -40,9 +40,9 @@ bool UBTDecorator_BaseStateCheck::CalculateRawConditionValue(class UBehaviorTree
     return CanEnterInState(target, _ownerComp);
 }
 
-UBehaviourComponent * UBTDecorator_BaseStateCheck::GetBehaviourComponent(class UBehaviorTreeComponent * _ownerComp) const
+UBehaviourComponent * UBTDecorator_BaseStateCheck::GetBehaviourComponent(class UBehaviorTreeComponent & _ownerComp) const
 {
-   ANPCController * npcCtr = _ownerComp ? Cast<ANPCController>(_ownerComp->GetOwner()) : NULL;
+   ANPCController * npcCtr = Cast<ANPCController>(_ownerComp.GetOwner());
    
     if(npcCtr != nullptr)
     {
@@ -57,7 +57,7 @@ UBehaviourComponent * UBTDecorator_BaseStateCheck::GetBehaviourComponent(class U
     return nullptr;
 }
 
-bool UBTDecorator_BaseStateCheck::CanEnterInState(ABaseCharacter * _target, class UBehaviorTreeComponent * _ownerComp) const
+bool UBTDecorator_BaseStateCheck::CanEnterInState(ABaseCharacter * _target, class UBehaviorTreeComponent & _ownerComp) const
 {
     return false;
 }

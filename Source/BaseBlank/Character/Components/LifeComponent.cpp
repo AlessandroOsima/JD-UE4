@@ -9,7 +9,6 @@
 ULifeComponent::ULifeComponent(const class FObjectInitializer& PCIP)
 	: Super(PCIP)
 {
-    m_bbKeyObserver = FOnBlackboardChange::CreateUObject(this, &ULifeComponent::OnApplyDamage);
 }
 
 
@@ -34,7 +33,7 @@ void ULifeComponent::SetLife(float _life)
 
 void ULifeComponent::ApplyDamage(float _damage)
 {
-    Life += _damage;
+    Life -= _damage;
     
     if(Life < 0)
     {
@@ -62,10 +61,10 @@ void ULifeComponent::BeginPlay()
     
     Life = GetMaxLife();
     
-    m_ownerBlackboard->RegisterObserver(m_ownerBlackboard->GetKeyID(m_owner->GetBlackboardKeys().DamageInfo) , m_bbKeyObserver);
+	m_ownerBlackboard->RegisterObserver(m_ownerBlackboard->GetKeyID(m_owner->GetBlackboardKeys().DamageInfo), this, FOnBlackboardChangeNotification::CreateUObject(this, &ULifeComponent::OnApplyDamage));
 }
 
-void ULifeComponent::OnApplyDamage(const class UBlackboardComponent *_blk, FBlackboard::FKey _key)
+EBlackboardNotificationResult ULifeComponent::OnApplyDamage(const class UBlackboardComponent & _blk, FBlackboard::FKey _key)
 {
     if(_key == m_ownerBlackboard->GetKeyID(m_owner->GetBlackboardKeys().DamageInfo))
     {
@@ -80,6 +79,8 @@ void ULifeComponent::OnApplyDamage(const class UBlackboardComponent *_blk, FBlac
     {
         UE_LOG(LogTemp, Warning, TEXT("[ULifeComponent]Received wrong blk entry"))
     }
+
+	return EBlackboardNotificationResult::ContinueObserving;
 }
 
 void ULifeComponent::OnOwnerConfigurationChange()

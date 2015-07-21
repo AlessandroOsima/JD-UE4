@@ -22,7 +22,7 @@ public:
     float MaxLife = 100;
     
     UPROPERTY(EditAnywhere, Category=Life)
-    bool HealToMaxLifeOnConfigChange = 100;
+    bool HealToMaxLifeOnConfigChange = true;
    
     UPROPERTY(EditAnywhere, Category=Logic)
     UBehaviorTree * BehaviorTreeAsset;

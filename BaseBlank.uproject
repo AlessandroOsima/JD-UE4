@@ -1,13 +1,17 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{DC1F845D-406B-E7CC-1FB7-28AE4380AED5}",
+	"EngineAssociation": "4.8",
 	"Category": "",
 	"Description": "",
 	"Modules": [
 		{
 			"Name": "BaseBlank",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"CoreUObject",
+				"Engine"
+			]
 		},
 		{
 			"Name": "BaseBlankEditor",

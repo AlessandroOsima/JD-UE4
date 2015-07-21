@@ -23,18 +23,18 @@ private:
     
 public:
     
-    UFUNCTION(BlueprintCallable, Category="JD,Souls Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Souls Management")
     void SetGameModeInfoConfig(UFreeGameModeConfigurationAsset * _config);
     
-    UFUNCTION(BlueprintCallable, Category="JD,Souls Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Souls Management")
     void SetSoulsAmount(int32 _soulsAmount);
     
-    UFUNCTION(BlueprintCallable, Category="JD,Souls Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Souls Management")
     int32 GetSoulsAmount() const;
     
-    UFUNCTION(BlueprintCallable, Category="JD,Souls Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Souls Management")
     int32 UseSoulsAmount(int32 _amount);
     
-    UFUNCTION(BlueprintCallable, Category="JD,Souls Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Souls Management")
     bool CanSpendSouls(int32 _amountToSpend) const;
 };

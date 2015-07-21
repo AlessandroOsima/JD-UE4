@@ -31,22 +31,22 @@ public:
     UPROPERTY(EditDefaultsOnly)
     int32 StartWithSelectedPowerIndex = 0;
     
-    UFUNCTION(BlueprintCallable, Category="JD,Powers Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
     void SelectNextPower();
     
-    UFUNCTION(BlueprintCallable, Category="JD,Powers Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
     void SelectPreviousPower();
     
-    UFUNCTION(BlueprintCallable, Category="JD,Powers Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
     void SelectPower(int32 _power);
     
-    UFUNCTION(BlueprintCallable, Category="JD,Powers Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
     void UsePower();
     
-    UFUNCTION(BlueprintCallable, Category="JD,Powers Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
     ABasePowerActor * GetActivePower();
     
-    UFUNCTION(BlueprintCallable, Category="JD,Powers Management")
+    UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
     int32 GetCurrentPowerIndex();
     
     UPROPERTY(BlueprintReadOnly)

@@ -18,10 +18,10 @@ class BASEBLANK_API UBTTask_FindNextPathPoint : public UBTTask_BlackboardBase
     UPROPERTY(EditAnywhere, Category=Node)
     bool Loop;
     
-    virtual EBTNodeResult::Type ExecuteTask(class UBehaviorTreeComponent* OwnerComp, uint8* NodeMemory) override;
+    virtual EBTNodeResult::Type ExecuteTask(class UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
     
-    virtual void DescribeRuntimeValues(const class UBehaviorTreeComponent* OwnerComp, uint8* NodeMemory, EBTDescriptionVerbosity::Type Verbosity, TArray<FString>& Values) const override;
+    virtual void DescribeRuntimeValues(const class UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, EBTDescriptionVerbosity::Type Verbosity, TArray<FString>& Values) const override;
     virtual FString GetStaticDescription() const override;
     
-    int32 GetCurrentPathIndex(const class UBehaviorTreeComponent * OwnerComp) const;
+    int32 GetCurrentPathIndex(const class UBehaviorTreeComponent& OwnerComp) const;
 };

@@ -27,11 +27,11 @@ void UBTTask_SelectMoveTarget::InitializeFromAsset(class UBehaviorTree & _asset)
     TargetIndex.CacheSelectedKey(BBAsset);
 }
 
-EBTNodeResult::Type UBTTask_SelectMoveTarget::ExecuteTask(class UBehaviorTreeComponent *OwnerComp, uint8 *NodeMemory)
+EBTNodeResult::Type UBTTask_SelectMoveTarget::ExecuteTask(class UBehaviorTreeComponent  &OwnerComp, uint8 *NodeMemory)
 {
     EBTNodeResult::Type result = EBTNodeResult::Type::Failed;
     
-    AAIController * aiController = OwnerComp ? Cast<AAIController>(OwnerComp->GetOwner()) : NULL;
+    AAIController * aiController = Cast<AAIController>(OwnerComp.GetOwner());
     
     if(aiController != nullptr)
     {
@@ -49,13 +49,14 @@ EBTNodeResult::Type UBTTask_SelectMoveTarget::ExecuteTask(class UBehaviorTreeCom
             
             if(PathPoints.Num() != 0)
             {
-                OwnerComp->GetBlackboardComponent()->SetValueAsObject(TargetObject.GetSelectedKeyID(), PathPoints[currentPathIndex]);
-                OwnerComp->GetBlackboardComponent()->SetValueAsVector(TargetLocation.GetSelectedKeyID(), PathPoints[currentPathIndex]->GetActorLocation());
+                OwnerComp.GetBlackboardComponent()->SetValueAsObject(TargetObject.GetSelectedKeyID(), PathPoints[currentPathIndex]);
+                OwnerComp.GetBlackboardComponent()->SetValueAsVector(TargetLocation.GetSelectedKeyID(), PathPoints[currentPathIndex]->GetActorLocation());
                 result = EBTNodeResult::Type::Succeeded;
             }
             else
             {
                 UE_LOG(LogTemp, Log, TEXT("The path points array is empty, unable to choose a target"))
+
             }
         }
         else
@@ -71,9 +72,9 @@ EBTNodeResult::Type UBTTask_SelectMoveTarget::ExecuteTask(class UBehaviorTreeCom
     return result;
 }
 
-int32 UBTTask_SelectMoveTarget::GetCurrentPathIndex(const class UBehaviorTreeComponent * OwnerComp) const
+int32 UBTTask_SelectMoveTarget::GetCurrentPathIndex(const class UBehaviorTreeComponent & OwnerComp) const
 {
-    int currentPathIndex = OwnerComp->GetBlackboardComponent()->GetValueAsInt(TargetIndex.GetSelectedKeyID());
+    int currentPathIndex = OwnerComp.GetBlackboardComponent()->GetValueAsInt(TargetIndex.GetSelectedKeyID());
     return currentPathIndex;
 }
 

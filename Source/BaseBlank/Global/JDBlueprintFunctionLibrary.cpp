@@ -15,4 +15,8 @@ UDamageInfo * UJDBlueprintFunctionLibrary::CreateDamageInfo()
     return NewObject<UDamageInfo>();
 }
 
+UObject * UJDBlueprintFunctionLibrary::CreateObject(TSubclassOf<UObject> UC)
+{
+	return  StaticConstructObject(UC);
+}
 

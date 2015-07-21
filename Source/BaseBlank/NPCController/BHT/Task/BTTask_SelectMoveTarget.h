@@ -15,7 +15,7 @@ class BASEBLANK_API UBTTask_SelectMoveTarget : public UBTTaskNode
 	
     UBTTask_SelectMoveTarget(const class FObjectInitializer& PCIP);
     
-    virtual EBTNodeResult::Type ExecuteTask(class UBehaviorTreeComponent* OwnerComp, uint8* NodeMemory) override;
+    virtual EBTNodeResult::Type ExecuteTask(class UBehaviorTreeComponent & OwnerComp, uint8* NodeMemory) override;
     
     UPROPERTY(EditAnywhere, Category=Blackboard)
     FBlackboardKeySelector TargetLocation;
@@ -32,7 +32,7 @@ class BASEBLANK_API UBTTask_SelectMoveTarget : public UBTTaskNode
     
 private:
     
-    int32 GetCurrentPathIndex(const class UBehaviorTreeComponent * OwnerComp) const;
+    int32 GetCurrentPathIndex(const class UBehaviorTreeComponent & OwnerComp) const;
 
     
 };

@@ -40,7 +40,12 @@ int32 UFreeModeSoulsInfoComponent::GetSoulsAmount() const
 
 int32 UFreeModeSoulsInfoComponent::UseSoulsAmount(int32 _amount)
 {
-    m_currentSouls += _amount;
+    m_currentSouls -= _amount;
+
+	if (m_currentSouls < 0)
+	{
+		m_currentSouls = 0;
+	}
     
     return m_currentSouls;
 }
