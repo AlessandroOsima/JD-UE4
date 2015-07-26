@@ -13,6 +13,10 @@ class ANPCController;
 /**
  * 
  */
+
+class UBaseEffect;
+class ABaseCharacter;
+
 UCLASS()
 class BASEBLANK_API ABaseBlankGameMode : public AGameMode
 {
@@ -20,6 +24,8 @@ class BASEBLANK_API ABaseBlankGameMode : public AGameMode
     
 private:
     TArray<ANPCController *> m_npcs;
+
+	TArray<UBaseEffect *> ActiveEffects;
     
 protected:
     virtual void HandleMatchIsWaitingToStart() override;
@@ -36,6 +42,15 @@ protected:
 
 public:
     
+	UFUNCTION(BlueprintCallable, Category = "JD|Victory Conditions")
+	void AddActiveEffect(UBaseEffect * activeEffect);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Victory Conditions")
+	void RemoveActiveEffect(UBaseEffect * effectToDeactivate);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Victory Conditions")
+	int32 GetActiveEffectsCount();
+
     UFUNCTION(BlueprintCallable, Category="JD|Victory Conditions")
     bool Lost() const;
     
@@ -46,19 +61,25 @@ public:
     FVictoryConditionsInfo & VictoryType() const;
     
     UFUNCTION(BlueprintCallable, Category="JD|Free Game Mode Info")
-    float GetNPCSInState(ENPCBehaviour _state);
+    float GetNPCSInState(ENPCBehaviour _state) const;
     
     UFUNCTION(BlueprintCallable, Category="JD|Free Game Mode Info")
     float GetNPCSNotInState(ENPCBehaviour _state);
     
     UFUNCTION(BlueprintCallable, Category="JD|Free Game Mode Info")
     float GetNPCSCount();
-    
-    UFUNCTION(BlueprintCallable, Category="JD|Level Info")
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Free Game Mode Info")
+	TArray<ANPCController *> & GetNPCs();
+
+	UFUNCTION(BlueprintCallable, Category="JD|Level Info")
     FString GetCurrentLevelName();
 
 	UFUNCTION(BlueprintCallable, Category = "JD|Level Info")
-	FString GetEndGameDescription();
+	FString GetEndGameDescription(); 
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Level Info")
+	const TArray<UBaseEffect *> & GetActiveEffects() const;
     
 private:
     

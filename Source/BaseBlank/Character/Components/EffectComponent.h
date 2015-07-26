@@ -22,6 +22,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "JD|Effect Component")
 	void RemoveEffect(UBaseEffect * effect);
 
+	UFUNCTION(BlueprintCallable, Category = "JD|Effect Component")
+	void RemoveAllEffects();
+
 protected:
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
 

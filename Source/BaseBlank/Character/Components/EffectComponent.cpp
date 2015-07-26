@@ -16,6 +16,14 @@ void UEffectComponent::RemoveEffect(UBaseEffect * effect)
 	effect->EndUse(Cast<ABaseCharacter>(GetOwner()));
 }
 
+void UEffectComponent::RemoveAllEffects()
+{
+	while (Effects.Num())
+	{
+		RemoveEffect(Effects.Last());
+	}
+}
+
 void UEffectComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) 
 {
 	for (auto effect : Effects)

@@ -13,7 +13,7 @@ struct FVictoryConditionsInfo
 public:
     
     UPROPERTY(EditAnywhere)
-    int32 SoulsAmount;
+    int32 NPCsAmount;
     
     UPROPERTY(EditAnywhere)
     FString VictoryText;
@@ -33,7 +33,7 @@ public:
     int32 Souls;
     
     UPROPERTY(EditAnywhere, Category="End Game Conditions")
-    TArray<FVictoryConditionsInfo> VictoriesCounditionSouls;
+    TArray<FVictoryConditionsInfo> VictoriesConditionNPCs;
     
     UPROPERTY(EditAnywhere, Category="End Game Conditions")
     int32 LoseConditionSouls;

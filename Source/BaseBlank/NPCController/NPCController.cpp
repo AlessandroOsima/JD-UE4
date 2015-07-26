@@ -42,9 +42,22 @@ void ANPCController::SetupBlackboardKeys()
     }
 }
 
+void ANPCController::PushNewBHTAsset(UBehaviorTree* BHTAssetToLoad)
+{
+	ensureMsg(BHTAssetToLoad != nullptr, TEXT("BHT Asset does not exist"));
+
+	BHTComponent->StartTree(*BHTAssetToLoad);
+
+	SetupBlackboardKeys();
+}
+
+void ANPCController::PopBHTAsset()
+{
+	BHTComponent->StartTree(*BHTAsset);
+}
+
 void ANPCController::Tick(float _deltaTime)
 {
-    
     ABaseCharacter * BaseChr = Cast<ABaseCharacter>(BlackboardComponent->GetValueAsObject(ANPCController::BlackboardKeys.TargetActor));
 }
 

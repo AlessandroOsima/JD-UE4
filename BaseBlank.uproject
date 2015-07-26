@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "4.8",
+	"EngineAssociation": "{F7E3E7A6-4C7A-9FCD-50BC-33BEAC96E000}",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -10,7 +10,9 @@
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
 				"CoreUObject",
-				"Engine"
+				"Engine",
+				"AIModule",
+				"GameplayDebugger"
 			]
 		},
 		{

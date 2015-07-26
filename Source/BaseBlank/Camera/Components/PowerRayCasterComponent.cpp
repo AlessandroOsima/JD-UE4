@@ -90,6 +90,7 @@ void UPowerRayCasterComponent::UsePower()
     }
 }
 
+
 void UPowerRayCasterComponent::SelectPreviousPower()
 {
     int32 prev = m_currentPowerIndex - 1;

@@ -7,6 +7,8 @@
 #include "GameModeInfo/FreeGameMode/FreeModeSoulsInfoComponent.h"
 #include "NPCController/NPCController.h"
 #include "NPCController/Components/BehaviourComponent.h"
+#include "Character/Effects/BaseEffect.h"
+#include "Character/BaseCharacter.h"
 #include "EngineUtils.h"
 
 ABaseBlankGameMode::ABaseBlankGameMode(const class FObjectInitializer& PCIP)
@@ -75,49 +77,59 @@ bool ABaseBlankGameMode::ReadyToEndMatch_Implementation()
 }
 
 
+void ABaseBlankGameMode::AddActiveEffect(UBaseEffect * activeEffect)
+{
+	ActiveEffects.Add(activeEffect);
+}
+
+void ABaseBlankGameMode::RemoveActiveEffect(UBaseEffect * effectToDeactivate)
+{
+	ActiveEffects.Remove(effectToDeactivate);
+}
+
+int32 ABaseBlankGameMode::GetActiveEffectsCount()
+{
+	return ActiveEffects.Num();
+}
+
+
+//Victory/Loss happens when there are no active effects, there are no more souls and the dead npcs are enough (or not) to win (or lose)
 bool ABaseBlankGameMode::Lost() const
 {
-    if(SoulsManager->GetSoulsAmount() <= GameModeConfig->LoseConditionSouls)
-    {
-        return true;
-    }
+	ensureMsg(GameModeConfig->VictoriesConditionNPCs.Num() != 0, TEXT("[ABaseBlankGameMode]No Specified victory conditions"));
     
+	if (ActiveEffects.Num() == 0 && SoulsManager->GetSoulsAmount() <= GameModeConfig->LoseConditionSouls && GetNPCSInState(ENPCBehaviour::Dead) < GameModeConfig->VictoriesConditionNPCs[0].NPCsAmount)
+	{
+		return true;
+	}
+
     return false;
 }
 
 bool ABaseBlankGameMode::Won() const
 {
-    bool won = true;
-    
-    for(int i = 0; i < m_npcs.Num(); i++)
-    {
-        if(m_npcs[i]->BehaviourComponent->GetNPCBehaviour() != ENPCBehaviour::Dead)
-        {
-            won = false;
-            break;
-        }
-    }
-    
-    return  won;
+	return !Lost() && SoulsManager->GetSoulsAmount() <= GameModeConfig->LoseConditionSouls && ActiveEffects.Num() == 0;
 }
 
 FVictoryConditionsInfo & ABaseBlankGameMode::VictoryType() const
 {
     //You need a valid victory condition here. If you don't have one then wtf are you calling this function for ?
-    ensureMsg(GameModeConfig->VictoriesCounditionSouls.Num() != 0, TEXT("[ABaseBlankGameMode]No Specified victory conditions"));
+    ensureMsg(GameModeConfig->VictoriesConditionNPCs.Num() != 0, TEXT("[ABaseBlankGameMode]No Specified victory conditions"));
     
-    for(int i = 0; i < GameModeConfig->VictoriesCounditionSouls.Num(); i++)
+	FVictoryConditionsInfo & conditions = GameModeConfig->VictoriesConditionNPCs[0];
+
+	for(int i = 0; i < GameModeConfig->VictoriesConditionNPCs.Num(); i++)
     {
-        if(SoulsManager->GetSoulsAmount() < GameModeConfig->VictoriesCounditionSouls[i].SoulsAmount)
+        if(GetNPCSInState(ENPCBehaviour::Dead) > GameModeConfig->VictoriesConditionNPCs[i].NPCsAmount && i > 0)
         {
-            return GameModeConfig->VictoriesCounditionSouls[i];
+            conditions = GameModeConfig->VictoriesConditionNPCs[i - 1];
         }
     }
     
-    return GameModeConfig->VictoriesCounditionSouls[0];
+    return conditions;
 }
 
-float ABaseBlankGameMode::GetNPCSInState(ENPCBehaviour _state)
+float ABaseBlankGameMode::GetNPCSInState(ENPCBehaviour _state) const
 {
     int inState = 0;
     
@@ -152,6 +164,11 @@ float ABaseBlankGameMode::GetNPCSCount()
     return m_npcs.Num();
 }
 
+TArray<ANPCController*> & ABaseBlankGameMode::GetNPCs()
+{
+	return m_npcs;
+}
+
 FString ABaseBlankGameMode::GetEndGameDescription()
 {
 	FString description;
@@ -165,6 +182,11 @@ FString ABaseBlankGameMode::GetEndGameDescription()
 	}
 
 	return description;
+}
+
+const TArray<UBaseEffect *> & ABaseBlankGameMode::GetActiveEffects() const
+{
+	return ActiveEffects;
 }
 
 FString ABaseBlankGameMode::GetCurrentLevelName()

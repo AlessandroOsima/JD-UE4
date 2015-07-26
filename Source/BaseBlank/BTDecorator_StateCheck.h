@@ -6,6 +6,8 @@
 #include "NPCController/Components/BehaviourComponent.h"
 #include "BTDecorator_StateCheck.generated.h"
 
+class ANPCController;
+
 /**
  * 
  */
@@ -19,9 +21,11 @@ class BASEBLANK_API UBTDecorator_StateCheck : public UBTDecorator_BaseStateCheck
     
 public:
     UBTDecorator_StateCheck(const class FObjectInitializer& PCIP);
-    
+	void OnBehaviourChanged(ABaseCharacter * Character, ENPCBehaviour OldBehavior, ENPCBehaviour NewBehavior);
+
 protected:
     virtual bool CanEnterInState(ABaseCharacter * _target, class UBehaviorTreeComponent & _ownerComp) const override;
 	virtual FString GetStaticDescription() const override;
-	
+	virtual void OnBecomeRelevant(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory);
+	virtual void OnCeaseRelevant(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory);	
 };

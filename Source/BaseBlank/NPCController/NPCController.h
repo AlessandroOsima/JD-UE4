@@ -28,21 +28,20 @@ class BASEBLANK_API ANPCController : public AAIController
     
 public:
     
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Logic)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Controller Logic")
     UBehaviorTreeComponent * BHTComponent;
     
-    UPROPERTY(EditDefaultsOnly, Category=Logic)
+	UPROPERTY(EditDefaultsOnly, Category = "JD|Controller Logic")
     UBehaviorTree * BHTAsset;
     
-    
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Logic)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Controller Logic")
     UBlackboardComponent * BlackboardComponent;
     
     
-    UPROPERTY(EditDefaultsOnly, Category=Logic)
+	UPROPERTY(EditDefaultsOnly, Category = "JD|Controller Logic")
     UBlackboardData * BlackboardAsset;
     
-    UPROPERTY(EditDefaultsOnly, Category=Logic)
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "JD|Controller Logic")
     UBehaviourComponent * BehaviourComponent;
     
     static NPCControllerBlackBoardKeys BlackboardKeys;
@@ -59,4 +58,10 @@ public:
         return ANPCController::BlackboardKeys;
     }
     
+	UFUNCTION(BlueprintCallable, Category = "JD|Controller Logic")
+	void PushNewBHTAsset(UBehaviorTree * BHTAssetToLoad);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Controller Logic")
+	void PopBHTAsset();
+
 };
