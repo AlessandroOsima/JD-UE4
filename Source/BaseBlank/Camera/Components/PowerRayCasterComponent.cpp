@@ -35,8 +35,16 @@ void UPowerRayCasterComponent::DoPowerRaycast()
     {
         color = FColor::Green;
         
-        DrawDebugSolidBox(GetWorld(), res.ImpactPoint, FVector(15, 15, 15), FColor::Green);
 		m_activePower->SetActorLocation(res.ImpactPoint);
+
+		FColor boxColor = FColor::Green;
+
+		if (!m_activePower->CanUse())
+		{
+			boxColor = FColor::Red;
+		}
+
+		DrawDebugSolidBox(GetWorld(), res.ImpactPoint, FVector(15, 15, 15), boxColor);
     }
     
     DrawDebugLine(GetWorld(), location, endLocation, color);

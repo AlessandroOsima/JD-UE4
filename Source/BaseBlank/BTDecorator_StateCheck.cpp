@@ -43,14 +43,14 @@ FString UBTDecorator_StateCheck::GetStaticDescription() const
        name = EnumPtr->GetEnumName((int8)BehaviourToEnter);
     }
 
-	FString evalInversed = "can";
+	FString evalInversed = "is";
     
 	if (IsInversed())
 	{
-		evalInversed = "cannot";
+		evalInversed = "is not";
 	}
 
-    return  FString::Printf(TEXT("Check if %s enter in state %s"), *evalInversed, *name);
+    return  FString::Printf(TEXT("Check if %s in state %s"), *evalInversed, *name);
 }
 
 void UBTDecorator_StateCheck::OnBecomeRelevant(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)

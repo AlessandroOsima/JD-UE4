@@ -11,6 +11,8 @@
 
 
 class UPowerConfigurationAsset;
+class ABaseCharacter;
+class UBaseEffect;
 
 /**
  * 
@@ -38,24 +40,34 @@ public:
    
 public:
 
-	UFUNCTION(BlueprintNativeEvent, Category = "JD, Powers")
+	UFUNCTION(BlueprintNativeEvent, Category = "JD|Powers")
 	bool CanUse();
     
-	UFUNCTION(BlueprintNativeEvent, Category = "JD, Powers")
+	UFUNCTION(BlueprintNativeEvent, Category = "JD|Powers")
 	void Use();
     
-	UFUNCTION(BlueprintNativeEvent, Category = "JD, Powers")
+	UFUNCTION(BlueprintNativeEvent, Category = "JD|Powers")
 	void Selecting();
     
-	UFUNCTION(BlueprintNativeEvent, Category = "JD, Powers")
+	UFUNCTION(BlueprintNativeEvent, Category = "JD|Powers")
 	void UnSelecting();    
 
-	UFUNCTION(BlueprintCallable, Category = "JD, Powers")
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
 	void SpendSouls();
 
-	UFUNCTION(BlueprintCallable, Category = "JD, Powers")
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
 	bool CanSpendWithoutLosing();
 
-	
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	bool ApplyEffectOnCharacter(TSubclassOf<UBaseEffect> Effect, ABaseCharacter * BaseCharacter);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	bool CanBeUsedOnThisCharacter(ABaseCharacter * BaseCharacter);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	bool CanBeUsedOnThisCharacterWithoutLosing(ABaseCharacter * BaseCharacter);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	bool HasEnoughSoulsToSpend();
 };
 

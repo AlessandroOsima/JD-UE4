@@ -5,6 +5,7 @@
 #include "GameFramework/Character.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Powers/BasePowerActor.h"
 #include "Character/Components/DamageInfo.h"
 #include "Components/PathPointsComponent.h"
 #include "Components/LifeComponent.h"
@@ -33,31 +34,47 @@ public:
     UFUNCTION()
     void SetCharacterConfiguration(UCharacterConfigurationAsset * _charConfig);
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Logic)
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="JD|Character Components")
     UBehaviorTreeComponent * BHTComponent;
     
-    UPROPERTY(EditDefaultsOnly, Category=Logic)
+	UPROPERTY(EditDefaultsOnly, Category = "JD|Character Components")
     UBehaviorTree * BHTAsset;
     
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Logic)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
     UBlackboardComponent * BlackboardComponent;
     
-    UPROPERTY(EditDefaultsOnly, Category=Logic)
+	UPROPERTY(EditDefaultsOnly, Category = "JD|Character Components")
     UBlackboardData * BlackboardAsset;
     
-    UPROPERTY(VisibleAnywhere, Category=Logic)
+	UPROPERTY(VisibleAnywhere, Category = "JD|Character Components")
     UPathPointsComponent * PathPointsComponent;
     
-    UPROPERTY(VisibleAnywhere, Category=Logic)
+	UPROPERTY(VisibleAnywhere, Category = "JD|Character Components")
     ULifeComponent * LifeComponent;
 
-	UPROPERTY(VisibleAnywhere, Category=Logic)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
 	UEffectComponent * EffectComponent;
+
+	
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	void AddShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	void RemoveShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	bool IsShieldedFromPower(TSubclassOf<ABasePowerActor> shieldedPower);
+
+
     
 protected:
     static BaseCharacterBlackBoardKeys s_blackboardKeys;
     
     virtual void BeginPlay() override;
+
+	UPROPERTY(EditDefaultsOnly, Category = "JD|Powers")
+	TArray<TSubclassOf<ABasePowerActor>> ShieldedFromPowers;
     
     //virtual void Tick(float _deltaTime) override;
     

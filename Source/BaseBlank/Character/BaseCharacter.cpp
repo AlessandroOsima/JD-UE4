@@ -36,6 +36,7 @@ void ABaseCharacter::BeginPlay()
     {
         BlackboardAsset = Configuration->BlackboardAsset;
         BHTAsset = Configuration->BehaviorTreeAsset;
+		ShieldedFromPowers = Configuration->ShieldedFromPowers;
     }
     
     SpawnDefaultController();
@@ -81,6 +82,21 @@ void ABaseCharacter::SetCharacterConfiguration(UCharacterConfigurationAsset *_ch
     {
         UE_LOG(LogTemp, Error, TEXT("[BaseCharacter]Trying to set null configuration"));
     }
+}
+
+void ABaseCharacter::AddShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower)
+{
+	ShieldedFromPowers.Add(shieldedPower);
+}
+
+void ABaseCharacter::RemoveShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower)
+{
+	ShieldedFromPowers.Remove(shieldedPower);
+}
+
+bool ABaseCharacter::IsShieldedFromPower(TSubclassOf<ABasePowerActor> shieldedPower)
+{
+	return ShieldedFromPowers.Contains(shieldedPower);
 }
 
 UBlackboardComponent * ABaseCharacter::GetBlackboard() const

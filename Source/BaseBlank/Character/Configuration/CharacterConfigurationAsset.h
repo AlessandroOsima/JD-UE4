@@ -5,6 +5,7 @@
 #include "Engine/DataAsset.h"
 #include "BehaviorTree/BehaviorTreeComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Powers/BasePowerActor.h"
 #include "CharacterConfigurationAsset.generated.h"
 
 /**
@@ -29,4 +30,7 @@ public:
     
     UPROPERTY(EditAnywhere, Category=Logic)
     UBlackboardData * BlackboardAsset;
+
+	UPROPERTY(EditAnywhere, Category = "JD|Powers")
+	TArray<TSubclassOf<ABasePowerActor>> ShieldedFromPowers;
 };

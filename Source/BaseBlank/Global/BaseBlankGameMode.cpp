@@ -14,16 +14,7 @@
 ABaseBlankGameMode::ABaseBlankGameMode(const class FObjectInitializer& PCIP)
 	: Super(PCIP)
 {
-    
     SoulsManager = PCIP.CreateDefaultSubobject<UFreeModeSoulsInfoComponent>(this, TEXT("Souls Manager"));
-    
-    //// set default pawn class to our Blueprinted character
-    //static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Blueprints/BP_Player_Camera"));
-    //
-    //if (PlayerPawnBPClass.Class != NULL)
-    //{
-    //    DefaultPawnClass = PlayerPawnBPClass.Class;
-    //}
 }
 
 void ABaseBlankGameMode::HandleMatchIsWaitingToStart()
@@ -98,7 +89,11 @@ bool ABaseBlankGameMode::Lost() const
 {
 	ensureMsg(GameModeConfig->VictoriesConditionNPCs.Num() != 0, TEXT("[ABaseBlankGameMode]No Specified victory conditions"));
     
-	if (ActiveEffects.Num() == 0 && SoulsManager->GetSoulsAmount() <= GameModeConfig->LoseConditionSouls && GetNPCSInState(ENPCBehaviour::Dead) < GameModeConfig->VictoriesConditionNPCs[0].NPCsAmount)
+
+	bool soulsEmpty = SoulsManager->GetSoulsAmount() <= GameModeConfig->LoseConditionSouls;
+	bool notEnoughNPCs = GetNPCSInState(ENPCBehaviour::Dead) < GameModeConfig->VictoriesConditionNPCs[0].NPCsAmount;
+
+	if (ActiveEffects.Num() == 0 && soulsEmpty && notEnoughNPCs)
 	{
 		return true;
 	}
@@ -108,7 +103,14 @@ bool ABaseBlankGameMode::Lost() const
 
 bool ABaseBlankGameMode::Won() const
 {
-	return !Lost() && SoulsManager->GetSoulsAmount() <= GameModeConfig->LoseConditionSouls && ActiveEffects.Num() == 0;
+	bool enoughNPCs = GetNPCSInState(ENPCBehaviour::Dead) >= GameModeConfig->VictoriesConditionNPCs[0].NPCsAmount;
+
+	if (ActiveEffects.Num() == 0 && enoughNPCs)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 FVictoryConditionsInfo & ABaseBlankGameMode::VictoryType() const
@@ -118,11 +120,13 @@ FVictoryConditionsInfo & ABaseBlankGameMode::VictoryType() const
     
 	FVictoryConditionsInfo & conditions = GameModeConfig->VictoriesConditionNPCs[0];
 
+	float deadNPCs = GetNPCSInState(ENPCBehaviour::Dead);
+
 	for(int i = 0; i < GameModeConfig->VictoriesConditionNPCs.Num(); i++)
     {
-        if(GetNPCSInState(ENPCBehaviour::Dead) > GameModeConfig->VictoriesConditionNPCs[i].NPCsAmount && i > 0)
+        if(deadNPCs >= GameModeConfig->VictoriesConditionNPCs[i].NPCsAmount && i > 0)
         {
-            conditions = GameModeConfig->VictoriesConditionNPCs[i - 1];
+            conditions = GameModeConfig->VictoriesConditionNPCs[i];
         }
     }
     
