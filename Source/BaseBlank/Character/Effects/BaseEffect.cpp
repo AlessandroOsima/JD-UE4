@@ -1,21 +1,22 @@
 #include "BaseBlank.h"
 #include "Character/BaseCharacter.h"
 #include "Global/BaseBlankGameMode.h"
+#include "Character/Components/EffectComponent.h"
 #include "BaseEffect.h"
 
 
 
-void UBaseEffect::StartUse_Implementation(ABaseCharacter * Character)
+void UBaseEffect::StartUse_Implementation(AActor * Owner)
 {
 	//RegisterToGameMode();
 }
 
-void UBaseEffect::Using_Implementation(ABaseCharacter * Character, float DeltatTime)
+void UBaseEffect::Using_Implementation(AActor * Owner, float DeltatTime)
 {
 
 }
 
-void UBaseEffect::EndUse_Implementation(ABaseCharacter * Character)
+void UBaseEffect::EndUse_Implementation(AActor * Owner)
 {
 	//UnregisterFromGameMode()
 }
@@ -46,3 +47,18 @@ void UBaseEffect::UnregisterFromGameMode()
 	ensureMsg(baseBlankGameMode, TEXT("No valid game mode found"));
 	baseBlankGameMode->RemoveActiveEffect(this);
 }
+
+void UBaseEffect::RemoveAndUnregisterFromOwner(AActor * Owner)
+{
+	ensure(Owner);
+
+	UPowerInteractionsComponent * cmp = Cast<UPowerInteractionsComponent>(Owner->GetComponentByClass(UPowerInteractionsComponent::StaticClass()));
+
+	ensure(cmp);
+
+	cmp->RemoveEffect(this);
+
+	UnregisterFromGameMode();
+
+}
+

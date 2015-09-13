@@ -23,9 +23,9 @@ EBTNodeResult::Type UBTTask_RemoveEffects::ExecuteTask(class UBehaviorTreeCompon
 
 		if (castedTarget != nullptr)
 		{
-			if (castedTarget->EffectComponent->Effects.Num() > 0)
+			if (castedTarget->PowerInteractionsComponent->Effects.Num() > 0)
 			{
-				castedTarget->EffectComponent->RemoveAllEffects();
+				castedTarget->PowerInteractionsComponent->RemoveAllEffects();
 			}
 		}
 		else

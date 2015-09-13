@@ -3,26 +3,26 @@
   <Properties>
     <Property Name="TargetName" Value="BaseBlank" />
     <Property Name="Platform" Value="Win64" />
-    <Property Name="Configuration" Value="DebugGame" />
+    <Property Name="Configuration" Value="Shipping" />
     <Property Name="Precompile" Value="False" />
   </Properties>
   <BuildProducts>
-    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-DebugGame.exe" Type="Executable" />
-    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-DebugGame.pdb" Type="SymbolFile" />
-    <BuildProduct Path="$(EngineDir)\Plugins\2D\Paper2D\Binaries\Win64\BaseBlank-Paper2D.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Experimental\CharacterAI\Binaries\Win64\BaseBlank-CharacterAI.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Media\WmfMedia\Binaries\Win64\BaseBlank-WmfMedia.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Messaging\UdpMessaging\Binaries\Win64\BaseBlank-UdpMessaging.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\CableComponent\Binaries\Win64\BaseBlank-CableComponent.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\CustomMeshComponent\Binaries\Win64\BaseBlank-CustomMeshComponent.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ExampleDeviceProfileSelector\Binaries\Win64\BaseBlank-ExampleDeviceProfileSelector.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\LeapMotionController\Binaries\Win64\BaseBlank-LeapMotionController.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\OculusRift\Binaries\Win64\BaseBlank-OculusRift.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ProceduralMeshComponent\Binaries\Win64\BaseBlank-ProceduralMeshComponent.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\Steam\SteamVR\Binaries\Win64\BaseBlank-SteamVR.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\Steam\SteamVR\Binaries\Win64\BaseBlank-SteamVRController.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\WindowsMoviePlayer\Binaries\Win64\BaseBlank-WindowsMoviePlayer.lib" Type="StaticLibrary" />
-    <BuildProduct Path="$(EngineDir)\Plugins\Slate\SlateRemote\Binaries\Win64\BaseBlank-SlateRemote.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-Shipping.exe" Type="Executable" />
+    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-Shipping.pdb" Type="SymbolFile" />
+    <BuildProduct Path="$(EngineDir)\Plugins\2D\Paper2D\Binaries\Win64\BaseBlank-Paper2D-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Experimental\CharacterAI\Binaries\Win64\BaseBlank-CharacterAI-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Media\WmfMedia\Binaries\Win64\BaseBlank-WmfMedia-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Messaging\UdpMessaging\Binaries\Win64\BaseBlank-UdpMessaging-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\CableComponent\Binaries\Win64\BaseBlank-CableComponent-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\CustomMeshComponent\Binaries\Win64\BaseBlank-CustomMeshComponent-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ExampleDeviceProfileSelector\Binaries\Win64\BaseBlank-ExampleDeviceProfileSelector-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\LeapMotionController\Binaries\Win64\BaseBlank-LeapMotionController-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\OculusRift\Binaries\Win64\BaseBlank-OculusRift-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ProceduralMeshComponent\Binaries\Win64\BaseBlank-ProceduralMeshComponent-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\Steam\SteamVR\Binaries\Win64\BaseBlank-SteamVR-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\Steam\SteamVR\Binaries\Win64\BaseBlank-SteamVRController-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\WindowsMoviePlayer\Binaries\Win64\BaseBlank-WindowsMoviePlayer-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Slate\SlateRemote\Binaries\Win64\BaseBlank-SlateRemote-Win64-Shipping.lib" Type="StaticLibrary" />
   </BuildProducts>
   <RuntimeDependencies>
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2013/PhysX3PROFILE_x64.dll" />

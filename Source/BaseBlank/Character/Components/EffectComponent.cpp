@@ -4,19 +4,19 @@
 #include "EffectComponent.h"
 
 
-void UEffectComponent::AddEffect(UBaseEffect * effect)
+void UPowerInteractionsComponent::AddEffect(UBaseEffect * effect)
 {
 	Effects.Add(effect);
-	effect->StartUse(Cast<ABaseCharacter>(GetOwner()));
+	effect->StartUse(GetOwner());
 }
 
-void UEffectComponent::RemoveEffect(UBaseEffect * effect)
+void UPowerInteractionsComponent::RemoveEffect(UBaseEffect * effect)
 {
 	Effects.Remove(effect);
-	effect->EndUse(Cast<ABaseCharacter>(GetOwner()));
+	effect->EndUse(GetOwner());
 }
 
-void UEffectComponent::RemoveAllEffects()
+void UPowerInteractionsComponent::RemoveAllEffects()
 {
 	while (Effects.Num())
 	{
@@ -24,11 +24,26 @@ void UEffectComponent::RemoveAllEffects()
 	}
 }
 
-void UEffectComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) 
+void UPowerInteractionsComponent::AddShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower)
+{
+	ShieldedFromPowers.Add(shieldedPower);
+}
+
+void UPowerInteractionsComponent::RemoveShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower)
+{
+	ShieldedFromPowers.Remove(shieldedPower);
+}
+
+bool UPowerInteractionsComponent::IsShieldedFromPower(TSubclassOf<ABasePowerActor> shieldedPower)
+{
+	return ShieldedFromPowers.Contains(shieldedPower);
+}
+
+void UPowerInteractionsComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
 	for (auto effect : Effects)
 	{
-		effect->Using(Cast<ABaseCharacter>(GetOwner()), DeltaTime);
+		effect->Using(GetOwner(), DeltaTime);
 	}
 }
 

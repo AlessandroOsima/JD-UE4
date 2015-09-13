@@ -50,6 +50,8 @@ void ACameraPawn::SetupPlayerInputComponent(UInputComponent * _inputComponent)
     _inputComponent->BindAction("UsePower", IE_Pressed, this, &ACameraPawn::OnPowerUsed);
     _inputComponent->BindAction("PowerNext", IE_Pressed, this, &ACameraPawn::OnPowerNext);
     _inputComponent->BindAction("PowerPrev", IE_Pressed, this, &ACameraPawn::OnPowerPrevious);
+
+	//Keyboard keys mapping to powers is done in tick, read the comments to know why
 }
 
 void ACameraPawn::MoveForward(float _value)
@@ -152,10 +154,66 @@ void ACameraPawn::RotateY(float _value)
 
 void ACameraPawn::Tick(float _deltaTime)
 {
+	//READ
+	//This is a pretty horrible solution BUT its the less terrible one since mapping an action and a function for each key is even crappier
+	//and axis are not the solution as they get reset to zero when no button is pressed
     if(this->GetController())
     {
-        auto controller = this->GetController();
-        controller->GetWorld();
+		APlayerController * controller = Cast<APlayerController>(GetController());
+
+		if (controller)
+		{
+			if (controller->WasInputKeyJustPressed(EKeys::One))
+			{
+				PowerService->SelectPower(0);
+			}
+
+			if (controller->WasInputKeyJustPressed(EKeys::Two))
+			{
+				PowerService->SelectPower(1);
+			}
+
+			if (controller->WasInputKeyJustPressed(EKeys::Three))
+			{
+				PowerService->SelectPower(2);
+			}
+
+			if (controller->WasInputKeyJustPressed(EKeys::Four))
+			{
+				PowerService->SelectPower(3);
+			}
+
+			if (controller->WasInputKeyJustPressed(EKeys::Five))
+			{
+				PowerService->SelectPower(4);
+			}
+
+			if (controller->WasInputKeyJustPressed(EKeys::Six))
+			{
+				PowerService->SelectPower(5);
+			}
+
+			if (controller->WasInputKeyJustPressed(EKeys::Seven))
+			{
+				PowerService->SelectPower(6);
+			}
+
+			if (controller->WasInputKeyJustPressed(EKeys::Eight))
+			{
+				PowerService->SelectPower(7);
+			}
+
+			if (controller->WasInputKeyJustPressed(EKeys::Nine))
+			{
+				PowerService->SelectPower(8);
+			}
+
+			if (controller->WasInputKeyJustPressed(EKeys::Zero))
+			{
+				PowerService->SelectPower(9);
+			}
+		}
+		
     }
 }
 

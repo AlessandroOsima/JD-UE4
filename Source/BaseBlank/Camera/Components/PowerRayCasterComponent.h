@@ -43,6 +43,7 @@ public:
     UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
     void UsePower();
     
+	//Can be null if now power is selected (and that can happen if there are no usable powers)
     UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
     ABasePowerActor * GetActivePower();
     
@@ -53,6 +54,17 @@ public:
     TArray<class ABasePowerActor *> Powers;
     
     virtual void OnRegister() override;
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers Management")
+	void SelectNextUsablePower();
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers Management")
+	void SelectPrevUsablePower(); 
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers Management")
+	void UpdateUsablePowers();
+
+	void OnGameModeSoulsChange(float oldSouls, float newSouls);
     
 private:
     

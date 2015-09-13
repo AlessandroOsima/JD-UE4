@@ -32,6 +32,7 @@ class BASEBLANK_API UBehaviourComponent : public UActorComponent
 private:
     ABaseCharacter * m_targetNPC;
 
+	//TODO:Lame, should become an event
 	TMap<UObject *, FOnBehaviorChangeDelegate> Observers;
 
 	ENPCBehaviour CurrentBehavior = ENPCBehaviour::Normal;
@@ -51,9 +52,17 @@ public:
     UFUNCTION(BlueprintCallable, Category="JD,NPC Behaviour")
 	ENPCBehaviour GetNPCBehaviour();
 
+	//TODO:Should become an event
 	void RegisterObserver(UObject * Owner, FOnBehaviorChangeDelegate Observer);
 
 	void UnRegisterObserver(UObject * Owner);
 
 	void NotifyObservers(ENPCBehaviour OldBehavior, ENPCBehaviour NewBehavior);
+
+
+	//This triggers the behavior update as (for now) 
+	//it is dependent only on the life component life value and does not need to be ticked each frame
+	void OnLifeValueChange(ABaseCharacter * Owner, float OldBehavior, float NewBehavior);
+
+	virtual void OnUnregister() override;
 };

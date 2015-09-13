@@ -4,6 +4,9 @@
 #include "BehaviourComponent.h"
 #include "Character/BaseCharacter.h"
 #include "Character/Components/LifeComponent.h"
+#include "Global/BaseBlankGameMode.h"
+#include "Global/GameModeInfo/FreeGameMode/FreeModeSoulsInfoComponent.h"
+#include "Character/Configuration/CharacterConfigurationAsset.h"
 
 
 UBehaviourComponent::UBehaviourComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
@@ -17,12 +20,15 @@ void UBehaviourComponent::BeginPlay()
 {
 	//This is initialization, we do not want to notify observers since CurrentBehavior is set to default invalid state until after this call
 	ComputeNPCBehaviour(false);
+
+	m_targetNPC->LifeComponent->OnLifeChange().AddUObject(this, &UBehaviourComponent::OnLifeValueChange);
 }
 
 void UBehaviourComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-	ComputeNPCBehaviour();
+	//ComputeNPCBehaviour();
 }
+
 
 void UBehaviourComponent::SetTargetNPC(ABaseCharacter * _targetNPC)
 {
@@ -43,7 +49,7 @@ void UBehaviourComponent::ComputeNPCBehaviour(bool DoNotifyObservers)
 
 	if (m_targetNPC != nullptr)
 	{
-		ULifeComponent * life = Cast<ULifeComponent>(m_targetNPC->GetComponentByClass(ULifeComponent::StaticClass()));
+		ULifeComponent * life = m_targetNPC->LifeComponent;
 
 		if (life != nullptr)
 		{
@@ -60,7 +66,19 @@ void UBehaviourComponent::ComputeNPCBehaviour(bool DoNotifyObservers)
 			}
 			else
 			{
-				CurrentBehavior = ENPCBehaviour::Dead;
+				if (CurrentBehavior != ENPCBehaviour::Dead)
+				{
+					CurrentBehavior = ENPCBehaviour::Dead;
+
+					ABaseBlankGameMode * gameMode = Cast<ABaseBlankGameMode>(m_targetNPC->GetWorld()->GetAuthGameMode());
+					ensure(gameMode);
+
+					UFreeModeSoulsInfoComponent * cmp = Cast<UFreeModeSoulsInfoComponent>(gameMode->FindComponentByClass(UFreeModeSoulsInfoComponent::StaticClass()));
+					ensureMsg(gameMode, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
+
+					cmp->UseSoulsAmount(-m_targetNPC->Configuration->SoulsOnDeath);
+
+				}
 			}
 
 			if (DoNotifyObservers && CurrentBehavior != oldBehaviour)
@@ -108,7 +126,6 @@ void UBehaviourComponent::UnRegisterObserver(UObject * Owner)
 	{
 		Observers.Remove(Owner);
 	}
-
 }
 
 void UBehaviourComponent::NotifyObservers(ENPCBehaviour OldBehavior, ENPCBehaviour NewBehavior)
@@ -125,5 +142,16 @@ void UBehaviourComponent::NotifyObservers(ENPCBehaviour OldBehavior, ENPCBehavio
 
 		value.ExecuteIfBound(m_targetNPC, OldBehavior, NewBehavior);
 	}
+}
+
+void UBehaviourComponent::OnLifeValueChange(ABaseCharacter * Owner, float OldBehavior, float NewBehavior)
+{
+	ComputeNPCBehaviour();
+}
+
+void UBehaviourComponent::OnUnregister()
+{
+	Super::OnUnregister();
+	m_targetNPC->LifeComponent->OnLifeChange().RemoveUObject(this, &UBehaviourComponent::OnLifeValueChange);
 }
 

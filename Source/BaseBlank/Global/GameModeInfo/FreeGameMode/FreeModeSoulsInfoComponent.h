@@ -16,12 +16,24 @@ class BASEBLANK_API UFreeModeSoulsInfoComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+public:
+	DECLARE_MULTICAST_DELEGATE_TwoParams(FSoulsChangeEvent, float, float);
+
+
 private:
     UFreeGameModeConfigurationAsset * m_ownerConfig;
     
     int32 m_currentSouls;
-    
+
+	FSoulsChangeEvent SoulsChangeEvent;
+
 public:
+
+	//UFUNCTION(BlueprintCallable, Category = "JD|Souls Management")
+	FSoulsChangeEvent & OnSoulsChange()
+	{
+		return SoulsChangeEvent;
+	}
     
     UFUNCTION(BlueprintCallable, Category="JD|Souls Management")
     void SetGameModeInfoConfig(UFreeGameModeConfigurationAsset * _config);

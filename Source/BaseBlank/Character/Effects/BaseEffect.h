@@ -18,13 +18,16 @@ class BASEBLANK_API UBaseEffect : public UObject
 	
 public:
 	UFUNCTION(BlueprintNativeEvent, Category = "JD|Powers")
-	void StartUse(ABaseCharacter * Character);
+	void StartUse(AActor * Owner);
 
 	UFUNCTION(BlueprintNativeEvent, Category = "JD|Powers")
-	void Using(ABaseCharacter * Character, float DeltatTime);
+	void Using(AActor * Owner, float DeltaTime);
 	
 	UFUNCTION(BlueprintNativeEvent, Category = "JD|Powers")
-	void EndUse(ABaseCharacter * Character);
+	void EndUse(AActor * Owner);
+
+	//Used to do active effects count with game mode
+	//TODO: maybe should be automatic, but perf ??
 
 	//Register this effect with the game mode. The player should not win/lose when a power effect is still active
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
@@ -33,5 +36,8 @@ public:
 	//Unregister this effect with the game mode 
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
 	void UnregisterFromGameMode();
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	void RemoveAndUnregisterFromOwner(AActor * Owner);
 	
 };

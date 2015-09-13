@@ -23,7 +23,12 @@ void ABasePowerActor::Selecting_Implementation()
 
 void ABasePowerActor::UnSelecting_Implementation()
 {
+}
 
+ABasePowerActor::ABasePowerActor(const FObjectInitializer & PCIP) : Super(PCIP), CanHaveChainedEffects(false)
+{
+	BoxCollider = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("BoxCollider"));
+	BoxCollider->SetBoxExtent(FVector(1, 1, 1), true);
 }
 
 void ABasePowerActor::SpendSouls()
@@ -61,11 +66,11 @@ bool ABasePowerActor::ApplyEffectOnCharacter(TSubclassOf<UBaseEffect> Effect, AB
 	ensure(BaseCharacter);
 
 
-	if (!BaseCharacter->IsShieldedFromPower(this->GetClass()))
+	if (!BaseCharacter->PowerInteractionsComponent->IsShieldedFromPower(this->GetClass()))
 	{
 		UBaseEffect * created = Cast<UBaseEffect>(NewObject<UObject>((UObject*)BaseCharacter, Effect));
 
-		BaseCharacter->EffectComponent->AddEffect(created);
+		BaseCharacter->PowerInteractionsComponent->AddEffect(created);
 
 		return true;
 	}
@@ -73,11 +78,42 @@ bool ABasePowerActor::ApplyEffectOnCharacter(TSubclassOf<UBaseEffect> Effect, AB
 	return false;
 }
 
+bool ABasePowerActor::ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> Effect)
+{
+	TArray<FOverlapResult> overlaps;
+
+	BoxCollider->ComponentOverlapMulti(overlaps,
+		this->GetWorld(),
+		BoxCollider->GetComponentLocation(),
+		BoxCollider->GetComponentRotation(), ECollisionChannel::ECC_Pawn,
+		FComponentQueryParams());
+
+	bool result = false;
+
+	if (overlaps.Num() > 0)
+	{
+		for (int i = 0; i < overlaps.Num(); i++)
+		{
+			//TODO: Handle with other actors than base character
+			AActor * hitTarget = overlaps[i].GetActor();
+			UPowerInteractionsComponent * cmp = Cast<UPowerInteractionsComponent>(hitTarget->GetComponentByClass(UPowerInteractionsComponent::StaticClass()));
+			if (hitTarget && cmp)
+			{
+				UBaseEffect * created = Cast<UBaseEffect>(NewObject<UObject>((UObject*)hitTarget, Effect));
+				cmp->AddEffect(created);
+				result || true;
+			}
+		}
+	}
+
+	return result;
+}
+
 bool ABasePowerActor::CanBeUsedOnThisCharacter(ABaseCharacter * BaseCharacter)
 {
 	ensure(BaseCharacter);
 
-	return !BaseCharacter->IsShieldedFromPower(this->GetClass());
+	return !BaseCharacter->PowerInteractionsComponent->IsShieldedFromPower(this->GetClass());
 }
 
 bool ABasePowerActor::CanBeUsedOnThisCharacterWithoutLosing(ABaseCharacter * BaseCharacter)
@@ -96,6 +132,59 @@ bool ABasePowerActor::HasEnoughSoulsToSpend()
 	ensureMsg(bsGameMode != nullptr, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
 
 	if (cmp->GetSoulsAmount() - SoulsCost >= 0)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool ABasePowerActor::CanBeUsedOnValidTarget()
+{
+	if (HasEnoughSoulsToSpend())
+	{
+		TArray<FOverlapResult> overlaps;
+
+		BoxCollider->ComponentOverlapMulti(overlaps,
+			this->GetWorld(),
+			BoxCollider->GetComponentLocation(),
+			BoxCollider->GetComponentRotation(), ECollisionChannel::ECC_Pawn,
+			FComponentQueryParams());
+
+		if (overlaps.Num() > 0)
+		{
+			for (int i = 0; i < overlaps.Num(); i++)
+			{
+				//TODO: Handle with other actors than base character
+				ABaseCharacter * hitTarget = Cast<ABaseCharacter>(overlaps[i].GetActor());
+
+				if (hitTarget)
+				{
+					if (CanHaveChainedEffects)
+					{
+						return CanBeUsedOnThisCharacter(hitTarget);
+					}
+					else
+					{
+						//If we have a hit and we have enough souls we still have to check if the character is not shielded and if no effect are already active
+						return hitTarget->PowerInteractionsComponent->Effects.Num() == 0 && CanBeUsedOnThisCharacter(hitTarget);
+					}
+				}
+			}
+		}
+
+		return true;
+	}
+
+	//If no souls the power cannot be used
+	return false;
+}
+
+bool ABasePowerActor::IsValidTarget(AActor * target)
+{
+	ensure(target);
+
+	if (target->GetComponentByClass(UPowerInteractionsComponent::StaticClass()))
 	{
 		return true;
 	}

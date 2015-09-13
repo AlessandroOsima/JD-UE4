@@ -52,7 +52,7 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Movement)
     class UPawnMovementComponent * MovementComponent;
     
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=CoaCllision)
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Collision)
     class UBoxComponent * BoxCollider;
     
     virtual void BeginPlay() override;

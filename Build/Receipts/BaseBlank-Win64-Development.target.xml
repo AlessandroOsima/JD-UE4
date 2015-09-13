@@ -3,12 +3,12 @@
   <Properties>
     <Property Name="TargetName" Value="BaseBlank" />
     <Property Name="Platform" Value="Win64" />
-    <Property Name="Configuration" Value="DebugGame" />
+    <Property Name="Configuration" Value="Development" />
     <Property Name="Precompile" Value="False" />
   </Properties>
   <BuildProducts>
-    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-DebugGame.exe" Type="Executable" />
-    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-DebugGame.pdb" Type="SymbolFile" />
+    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank.exe" Type="Executable" />
+    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank.pdb" Type="SymbolFile" />
     <BuildProduct Path="$(EngineDir)\Plugins\2D\Paper2D\Binaries\Win64\BaseBlank-Paper2D.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Experimental\CharacterAI\Binaries\Win64\BaseBlank-CharacterAI.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Media\WmfMedia\Binaries\Win64\BaseBlank-WmfMedia.lib" Type="StaticLibrary" />

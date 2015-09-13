@@ -19,6 +19,8 @@ float ULifeComponent::GetLife() const
 
 void ULifeComponent::SetLife(float _life)
 {
+	float oldLife = Life;
+
     Life = _life;
     
     if(Life < 0)
@@ -29,10 +31,15 @@ void ULifeComponent::SetLife(float _life)
     {
         Life = GetMaxLife();
     }
+
+	LifeChange.Broadcast(m_owner, oldLife, Life);
+
 }
 
 void ULifeComponent::ApplyDamage(float _damage)
 {
+	float oldLife = Life;
+
     Life -= _damage;
     
     if(Life < 0)
@@ -43,6 +50,17 @@ void ULifeComponent::ApplyDamage(float _damage)
     {
         Life = GetMaxLife();
     }
+
+	LifeChange.Broadcast(m_owner, oldLife, Life);
+}
+
+void ULifeComponent::Kill()
+{
+	float OldLife = Life;
+
+	Life = 0;
+
+	LifeChange.Broadcast(m_owner, OldLife, Life);
 }
 
 float ULifeComponent::GetMaxLife() const
@@ -52,7 +70,12 @@ float ULifeComponent::GetMaxLife() const
 
 void ULifeComponent::HealToFull()
 {
+	float OldLife = Life;
+
     Life = GetMaxLife();
+
+	LifeChange.Broadcast(m_owner, OldLife, Life);
+
 }
 
 void ULifeComponent::BeginPlay()

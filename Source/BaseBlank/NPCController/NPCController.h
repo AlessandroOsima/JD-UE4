@@ -21,6 +21,9 @@ struct NPCControllerBlackBoardKeys
     const FName TargetIndex = FName("TargetIndex"); //The index of the next point to reach in the path points array
 };
 
+
+class ABaseCharacter;
+
 UCLASS()
 class BASEBLANK_API ANPCController : public AAIController
 {
@@ -60,6 +63,9 @@ public:
     
 	UFUNCTION(BlueprintCallable, Category = "JD|Controller Logic")
 	void PushNewBHTAsset(UBehaviorTree * BHTAssetToLoad);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Controller Logic")
+	ABaseCharacter * GetBaseCharacter();
 
 	UFUNCTION(BlueprintCallable, Category = "JD|Controller Logic")
 	void PopBHTAsset();

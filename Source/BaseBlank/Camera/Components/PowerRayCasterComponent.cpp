@@ -3,6 +3,7 @@
 #include "BaseBlank.h"
 #include "Array.h"
 #include "PowerRayCasterComponent.h"
+#include "Global/GameModeInfo/FreeGameMode/FreeModeSoulsInfoComponent.h"
 
 
 
@@ -31,7 +32,7 @@ void UPowerRayCasterComponent::DoPowerRaycast()
     
     FHitResult res;
     
-    if(GetWorld()->LineTraceSingle(res, location, endLocation, FloorRayTraceChannel.GetValue(), parm))
+    if(m_activePower != nullptr && GetWorld()->LineTraceSingle(res, location, endLocation, FloorRayTraceChannel.GetValue(), parm))
     {
         color = FColor::Green;
         
@@ -74,17 +75,107 @@ void UPowerRayCasterComponent::OnRegister()
     }
     
     SelectPower(StartWithSelectedPowerIndex);
+
+	//Register to game mode souls info component
+	AGameMode * gm = GetWorld()->GetAuthGameMode();
+
+	UFreeModeSoulsInfoComponent * cmp = Cast<UFreeModeSoulsInfoComponent>(gm->GetComponentByClass(UFreeModeSoulsInfoComponent::StaticClass()));
+
+	ensure(cmp);
+
+	if (cmp)
+	{
+		cmp->OnSoulsChange().AddUObject(this, &UPowerRayCasterComponent::OnGameModeSoulsChange);
+	}
+
+
+}
+
+void UPowerRayCasterComponent::SelectNextUsablePower()
+{
+	int32 currentIndex = m_currentPowerIndex + 1;
+	bool found = false;
+
+	while (currentIndex != m_currentPowerIndex)
+	{
+		if (currentIndex >= Powers.Num())
+		{
+			currentIndex = 0;
+		}
+
+		if (Powers[currentIndex]->HasEnoughSoulsToSpend())
+		{
+			SelectPower(currentIndex);
+			found = true;
+			break;
+		}
+
+		currentIndex++;
+
+	}
+
+	if (!found && m_activePower && !m_activePower->HasEnoughSoulsToSpend())
+	{
+		m_activePower = nullptr;
+		m_currentPowerIndex = 0;
+	}
+}
+
+void UPowerRayCasterComponent::SelectPrevUsablePower()
+{
+	int32 currentIndex = m_currentPowerIndex - 1;
+	bool found = false;
+
+	while (currentIndex != m_currentPowerIndex)
+	{
+		if (currentIndex < 0)
+		{
+			currentIndex = Powers.Num() - 1;
+		}
+
+		if (Powers[currentIndex]->HasEnoughSoulsToSpend())
+		{
+			SelectPower(currentIndex);
+			found = true;
+			break;
+		}
+
+		currentIndex--;
+
+	}
+
+	if (!found && m_activePower && !m_activePower->HasEnoughSoulsToSpend())
+	{
+		m_activePower = nullptr;
+	}
+}
+
+void UPowerRayCasterComponent::UpdateUsablePowers()
+{
+	if (m_activePower && !m_activePower->HasEnoughSoulsToSpend())
+	{
+		SelectNextUsablePower();
+	}
+	else if (!m_activePower)
+	{
+		//Try to restore the prev selected
+		if (Powers[m_currentPowerIndex]->HasEnoughSoulsToSpend())
+		{
+			SelectPower(m_currentPowerIndex);
+		}
+		
+		SelectNextUsablePower();
+	}
+}
+
+void UPowerRayCasterComponent::OnGameModeSoulsChange(float oldSouls, float newSouls)
+{
+	UpdateUsablePowers();
 }
 
 void UPowerRayCasterComponent::SelectNextPower()
 {
-    int32 next = m_currentPowerIndex + 1;
-    if(next >= Powers.Num())
-    {
-        next = 0;
-    }
-    
-    SelectPower(next);
+	SelectNextUsablePower();
 }
 
 void UPowerRayCasterComponent::UsePower()
@@ -101,18 +192,12 @@ void UPowerRayCasterComponent::UsePower()
 
 void UPowerRayCasterComponent::SelectPreviousPower()
 {
-    int32 prev = m_currentPowerIndex - 1;
-    if(prev < 0)
-    {
-        prev = Powers.Num() - 1;
-    }
-    
-    SelectPower(prev);
+	SelectPrevUsablePower();
 }
 
 void UPowerRayCasterComponent::SelectPower(int32 _power)
 {
-    if(Powers.Num() > 0 && Powers.Num() > _power)
+	if (Powers.Num() > 0 && Powers.Num() > _power && Powers[_power]->HasEnoughSoulsToSpend())
     {
         if(m_activePower != nullptr)
         {

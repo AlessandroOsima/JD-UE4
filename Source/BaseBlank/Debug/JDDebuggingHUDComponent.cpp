@@ -66,7 +66,7 @@ void AJDDebuggingHUDComponent::DrawGameSpecificView(APlayerController* PC, class
 				ABaseCharacter * baseCharacter = Cast<ABaseCharacter>(npc->GetControlledPawn());
 
 
-				for (UBaseEffect * effect : baseCharacter->EffectComponent->Effects)
+				for (UBaseEffect * effect : baseCharacter->PowerInteractionsComponent->Effects)
 				{
 					effect->GetName(effectName);
 					PrintString(DefaultContext, FString::Printf(TEXT("  {white}Effect {green}%s\n"), *effectName));

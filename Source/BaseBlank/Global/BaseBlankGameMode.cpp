@@ -104,9 +104,15 @@ bool ABaseBlankGameMode::Lost() const
 bool ABaseBlankGameMode::Won() const
 {
 	bool enoughNPCs = GetNPCSInState(ENPCBehaviour::Dead) >= GameModeConfig->VictoriesConditionNPCs[0].NPCsAmount;
+	bool soulsEmpty = SoulsManager->GetSoulsAmount() <= GameModeConfig->LoseConditionSouls;
 
 	if (ActiveEffects.Num() == 0 && enoughNPCs)
 	{
+		if (!soulsEmpty && GetNPCSInState(ENPCBehaviour::Dead) < m_npcs.Num())
+		{
+			return false;
+		}
+
 		return true;
 	}
 

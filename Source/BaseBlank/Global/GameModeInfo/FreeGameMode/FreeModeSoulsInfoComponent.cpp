@@ -30,7 +30,11 @@ bool UFreeModeSoulsInfoComponent::CanSpendSouls(int32 _amountToSpend) const
 
 void UFreeModeSoulsInfoComponent::SetSoulsAmount(int32 _soulsAmount)
 {
+	float oldCurrent = m_currentSouls;
+
     m_currentSouls = _soulsAmount;
+
+	SoulsChangeEvent.Broadcast(oldCurrent, m_currentSouls);
 }
 
 int32 UFreeModeSoulsInfoComponent::GetSoulsAmount() const
@@ -40,12 +44,16 @@ int32 UFreeModeSoulsInfoComponent::GetSoulsAmount() const
 
 int32 UFreeModeSoulsInfoComponent::UseSoulsAmount(int32 _amount)
 {
+	float oldCurrent = m_currentSouls;
+
     m_currentSouls -= _amount;
 
 	if (m_currentSouls < 0)
 	{
 		m_currentSouls = 0;
 	}
+
+	SoulsChangeEvent.Broadcast(oldCurrent, m_currentSouls);
     
     return m_currentSouls;
 }

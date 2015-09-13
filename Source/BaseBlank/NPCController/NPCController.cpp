@@ -51,6 +51,13 @@ void ANPCController::PushNewBHTAsset(UBehaviorTree* BHTAssetToLoad)
 	SetupBlackboardKeys();
 }
 
+ABaseCharacter * ANPCController::GetBaseCharacter()
+{
+	ensure(this->GetControlledPawn());
+
+	return Cast<ABaseCharacter>(this->GetControlledPawn());
+}
+
 void ANPCController::PopBHTAsset()
 {
 	BHTComponent->StartTree(*BHTAsset);
@@ -74,7 +81,7 @@ void ANPCController::Possess(APawn *_pawn)
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("[ANPCController]Possessing a non BaseCharacter Pawn, that doesn't sound good"));
+		ensureMsg(0, TEXT("[ANPCController]Possessing a non BaseCharacter Pawn, that doesn't sound good"));
     }
 }
 

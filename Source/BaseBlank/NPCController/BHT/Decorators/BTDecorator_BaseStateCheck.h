@@ -15,7 +15,10 @@ class UBehaviourComponent;
 UCLASS()
 class BASEBLANK_API UBTDecorator_BaseStateCheck : public UBTDecorator
 {
-	GENERATED_UCLASS_BODY()
+	GENERATED_BODY()
+
+public:
+	UBTDecorator_BaseStateCheck(const class FObjectInitializer& PCIP);
 
 protected:
     //The entry on the blackboard we have to check for state

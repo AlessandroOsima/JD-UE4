@@ -33,4 +33,7 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "JD|Powers")
 	TArray<TSubclassOf<ABasePowerActor>> ShieldedFromPowers;
+
+	UPROPERTY(EditAnywhere, Category = "JD|Souls")
+	float SoulsOnDeath = 3;
 };

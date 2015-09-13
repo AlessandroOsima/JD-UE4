@@ -43,38 +43,26 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
     UBlackboardComponent * BlackboardComponent;
     
-	UPROPERTY(EditDefaultsOnly, Category = "JD|Character Components")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "JD|Character Components")
     UBlackboardData * BlackboardAsset;
     
-	UPROPERTY(VisibleAnywhere, Category = "JD|Character Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
     UPathPointsComponent * PathPointsComponent;
     
-	UPROPERTY(VisibleAnywhere, Category = "JD|Character Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
     ULifeComponent * LifeComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
-	UEffectComponent * EffectComponent;
+	UPowerInteractionsComponent * PowerInteractionsComponent;
 
-	
-
-	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
-	void AddShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower);
-
-	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
-	void RemoveShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower);
-
-	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
-	bool IsShieldedFromPower(TSubclassOf<ABasePowerActor> shieldedPower);
-
-
+	//Collider used to handle collision between effects ONLY 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
+	UCapsuleComponent * PowerEffectsCollider;
     
 protected:
     static BaseCharacterBlackBoardKeys s_blackboardKeys;
     
     virtual void BeginPlay() override;
-
-	UPROPERTY(EditDefaultsOnly, Category = "JD|Powers")
-	TArray<TSubclassOf<ABasePowerActor>> ShieldedFromPowers;
     
     //virtual void Tick(float _deltaTime) override;
     

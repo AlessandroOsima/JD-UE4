@@ -16,10 +16,11 @@ ABaseCharacter::ABaseCharacter(const class FObjectInitializer& PCIP)
     BlackboardComponent = PCIP.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackboardComponent"));
     PathPointsComponent = PCIP.CreateDefaultSubobject<UPathPointsComponent>(this, TEXT("PathPointsComponent"));
     LifeComponent = PCIP.CreateDefaultSubobject<ULifeComponent>(this, TEXT("LifeComponent"));
-	EffectComponent = PCIP.CreateDefaultSubobject<UEffectComponent>(this, TEXT("EffectComponent"));
+	PowerInteractionsComponent = PCIP.CreateDefaultSubobject<UPowerInteractionsComponent>(this, TEXT("PowerComponent"));
+	PowerEffectsCollider = PCIP.CreateDefaultSubobject<UCapsuleComponent>(this, TEXT("PowerEffectsCollider"));
     
-	EffectComponent->PrimaryComponentTick.bCanEverTick = true;
-	EffectComponent->PrimaryComponentTick.bStartWithTickEnabled = true;
+	PowerInteractionsComponent->PrimaryComponentTick.bCanEverTick = true;
+	PowerInteractionsComponent->PrimaryComponentTick.bStartWithTickEnabled = true;
 
     this->PrimaryActorTick.bCanEverTick = true;
     this->PrimaryActorTick.bStartWithTickEnabled = true;
@@ -36,7 +37,7 @@ void ABaseCharacter::BeginPlay()
     {
         BlackboardAsset = Configuration->BlackboardAsset;
         BHTAsset = Configuration->BehaviorTreeAsset;
-		ShieldedFromPowers = Configuration->ShieldedFromPowers;
+		PowerInteractionsComponent->ShieldedFromPowers = Configuration->ShieldedFromPowers;
     }
     
     SpawnDefaultController();
@@ -82,21 +83,6 @@ void ABaseCharacter::SetCharacterConfiguration(UCharacterConfigurationAsset *_ch
     {
         UE_LOG(LogTemp, Error, TEXT("[BaseCharacter]Trying to set null configuration"));
     }
-}
-
-void ABaseCharacter::AddShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower)
-{
-	ShieldedFromPowers.Add(shieldedPower);
-}
-
-void ABaseCharacter::RemoveShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower)
-{
-	ShieldedFromPowers.Remove(shieldedPower);
-}
-
-bool ABaseCharacter::IsShieldedFromPower(TSubclassOf<ABasePowerActor> shieldedPower)
-{
-	return ShieldedFromPowers.Contains(shieldedPower);
 }
 
 UBlackboardComponent * ABaseCharacter::GetBlackboard() const
