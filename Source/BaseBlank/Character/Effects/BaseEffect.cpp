@@ -4,8 +4,6 @@
 #include "Character/Components/EffectComponent.h"
 #include "BaseEffect.h"
 
-
-
 void UBaseEffect::StartUse_Implementation(AActor * Owner)
 {
 	//RegisterToGameMode();
@@ -18,12 +16,11 @@ void UBaseEffect::Using_Implementation(AActor * Owner, float DeltatTime)
 
 void UBaseEffect::EndUse_Implementation(AActor * Owner)
 {
-	//UnregisterFromGameMode()
+	//UnregisterFromGameMode();
 }
 
 void UBaseEffect::RegisterToGameMode()
 {
-
 	UObject * outer = this->GetOuter();
 
 	UWorld * World = outer->GetWorld();
@@ -31,7 +28,7 @@ void UBaseEffect::RegisterToGameMode()
 	ensure(World);
 	ABaseBlankGameMode * baseBlankGameMode = Cast<ABaseBlankGameMode>(World->GetAuthGameMode());
 
-	ensureMsg(baseBlankGameMode, TEXT("No valid game mode found"));
+	ensureMsgf(baseBlankGameMode, TEXT("No valid game mode found"));
 	baseBlankGameMode->AddActiveEffect(this);
 }
 
@@ -44,7 +41,7 @@ void UBaseEffect::UnregisterFromGameMode()
 	ensure(World);
 	ABaseBlankGameMode * baseBlankGameMode = Cast<ABaseBlankGameMode>(World->GetAuthGameMode());
 
-	ensureMsg(baseBlankGameMode, TEXT("No valid game mode found"));
+	ensureMsgf(baseBlankGameMode, TEXT("No valid game mode found"));
 	baseBlankGameMode->RemoveActiveEffect(this);
 }
 
@@ -59,6 +56,5 @@ void UBaseEffect::RemoveAndUnregisterFromOwner(AActor * Owner)
 	cmp->RemoveEffect(this);
 
 	UnregisterFromGameMode();
-
 }
 

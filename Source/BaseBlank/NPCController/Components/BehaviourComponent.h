@@ -36,6 +36,8 @@ private:
 	TMap<UObject *, FOnBehaviorChangeDelegate> Observers;
 
 	ENPCBehaviour CurrentBehavior = ENPCBehaviour::Normal;
+
+	FDelegateHandle LifeChangeDelegate;
     
 	void ComputeNPCBehaviour(bool DoNotifyObservers = true);
 public:

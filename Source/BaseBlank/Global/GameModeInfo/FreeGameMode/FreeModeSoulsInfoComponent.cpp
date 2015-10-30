@@ -8,7 +8,7 @@
 
 void UFreeModeSoulsInfoComponent::SetGameModeInfoConfig(UFreeGameModeConfigurationAsset *_config)
 {
-    ensureMsg(_config != nullptr, TEXT("[UFreeModeSoulsInfoComponent]Trying to set a NULL config"));
+	ensureMsgf(_config != nullptr, TEXT("[UFreeModeSoulsInfoComponent]Trying to set a NULL config"));
     
     
     m_ownerConfig = _config;

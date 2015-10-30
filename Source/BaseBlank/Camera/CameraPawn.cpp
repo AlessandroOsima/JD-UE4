@@ -132,23 +132,44 @@ void ACameraPawn::MoveSide(float _value)
 
 void ACameraPawn::RotateZ(float _value)
 {
-    if(_value)
+	if (_value && EnableYawRotation)
     {
         //UE_LOG(LogTemp, Log, TEXT("ROTATE WITH VALUE %f"), _value)
-        //UE_LOG(LogTemp, Log, TEXT("ROTATION STEP YAW IS %f"), RotationStepYaw)
-        
-        this->AddControllerYawInput(RotationStepYaw * _value);
+		//UE_LOG(LogTemp, Log, TEXT("ROTATION STEP YAW IS %f"), RotationStepYaw)
+		//UE_LOG(LogTemp, Log, TEXT("ROTATION YAW IS %f"), GetViewRotation().Yaw)
+
+		float YawInput = RotationStepYaw * _value;
+
+        this->AddControllerYawInput(YawInput);
     }
 }
 
 void ACameraPawn::RotateY(float _value)
 {
-    if(_value)
+    if(_value && EnablePitchRotation)
     {
         //UE_LOG(LogTemp, Log, TEXT("ROTATE WITH VALUE %f"), _value)
-        //UE_LOG(LogTemp, Log, TEXT("ROTATION STEP IS %f"), RotationStepPitch)
-        
-        this->AddControllerPitchInput(RotationStepPitch * _value);
+		//UE_LOG(LogTemp, Log, TEXT("ROTATION STEP IS %f"), RotationStepPitch)
+		//UE_LOG(LogTemp, Log, TEXT("ROTATION PITCH IS %f"), GetViewRotation().Pitch)
+
+		float PitchInput = RotationStepPitch * _value;
+		float TotalPitch = GetViewRotation().Pitch + PitchInput;
+
+		//If we are in the [270-360] up range (0 in pitch rotation is the camera world forward)
+		if (GetViewRotation().Pitch >= 270 && GetViewRotation().Pitch <= 360) //If we are in the [360-270] down range 
+		{
+			if (_value > 0 && TotalPitch <= PitchNegativeRange)
+			{
+				return;
+			}
+			
+			if (_value < 0 && TotalPitch >= PitchPositiveRange)
+			{
+				return;
+			}
+		}
+
+		this->AddControllerPitchInput(PitchInput);
     }
 }
 

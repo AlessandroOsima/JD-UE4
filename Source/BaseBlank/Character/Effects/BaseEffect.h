@@ -39,5 +39,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
 	void RemoveAndUnregisterFromOwner(AActor * Owner);
-	
+
+	//The highest priority effect is the one chosen in animations, ecc
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (ClampMin = "0", UIMin = "0"), Category = "Powers")
+	int32 Priority = 0;	
 };

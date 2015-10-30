@@ -34,10 +34,10 @@ ABasePowerActor::ABasePowerActor(const FObjectInitializer & PCIP) : Super(PCIP),
 void ABasePowerActor::SpendSouls()
 {
 	ABaseBlankGameMode * bsGameMode = Cast<ABaseBlankGameMode>(GetWorld()->GetAuthGameMode());
-	ensureMsg(bsGameMode != nullptr, TEXT("Unable to cast Game Mode to ABaseBlankGameMode"));
+	ensureMsgf(bsGameMode != nullptr, TEXT("Unable to cast Game Mode to ABaseBlankGameMode"));
 
 	UFreeModeSoulsInfoComponent * cmp = Cast<UFreeModeSoulsInfoComponent>(bsGameMode->FindComponentByClass(UFreeModeSoulsInfoComponent::StaticClass()));
-	ensureMsg(bsGameMode != nullptr, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
+	ensureMsgf(bsGameMode != nullptr, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
 
 	cmp->UseSoulsAmount(SoulsCost);
 	
@@ -46,10 +46,10 @@ void ABasePowerActor::SpendSouls()
 bool ABasePowerActor::CanSpendWithoutLosing()
 {
 	ABaseBlankGameMode * bsGameMode = Cast<ABaseBlankGameMode>(GetWorld()->GetAuthGameMode());
-	ensureMsg(bsGameMode != nullptr, TEXT("Unable to cast Game Mode to ABaseBlankGameMode"));
+	ensureMsgf(bsGameMode != nullptr, TEXT("Unable to cast Game Mode to ABaseBlankGameMode"));
 
 	UFreeModeSoulsInfoComponent * cmp = Cast<UFreeModeSoulsInfoComponent>(bsGameMode->FindComponentByClass(UFreeModeSoulsInfoComponent::StaticClass()));
-	ensureMsg(bsGameMode != nullptr, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
+	ensureMsgf(bsGameMode != nullptr, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
 
 	if (cmp->CanSpendSouls(SoulsCost))
 	{
@@ -78,7 +78,7 @@ bool ABasePowerActor::ApplyEffectOnCharacter(TSubclassOf<UBaseEffect> Effect, AB
 	return false;
 }
 
-bool ABasePowerActor::ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> Effect)
+bool ABasePowerActor::ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> Effect, bool RemoveOtherEffects)
 {
 	TArray<FOverlapResult> overlaps;
 
@@ -96,12 +96,20 @@ bool ABasePowerActor::ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> E
 		{
 			//TODO: Handle with other actors than base character
 			AActor * hitTarget = overlaps[i].GetActor();
+
+			if (!hitTarget)
+			{
+				result = result | false;
+				continue;
+			}
+
 			UPowerInteractionsComponent * cmp = Cast<UPowerInteractionsComponent>(hitTarget->GetComponentByClass(UPowerInteractionsComponent::StaticClass()));
 			if (hitTarget && cmp)
 			{
 				UBaseEffect * created = Cast<UBaseEffect>(NewObject<UObject>((UObject*)hitTarget, Effect));
+				cmp->RemoveAllEffects();
 				cmp->AddEffect(created);
-				result || true;
+				result = result | true;
 			}
 		}
 	}
@@ -126,10 +134,10 @@ bool ABasePowerActor::CanBeUsedOnThisCharacterWithoutLosing(ABaseCharacter * Bas
 bool ABasePowerActor::HasEnoughSoulsToSpend()
 {
 	ABaseBlankGameMode * bsGameMode = Cast<ABaseBlankGameMode>(GetWorld()->GetAuthGameMode());
-	ensureMsg(bsGameMode != nullptr, TEXT("Unable to cast Game Mode to ABaseBlankGameMode"));
+	ensureMsgf(bsGameMode != nullptr, TEXT("Unable to cast Game Mode to ABaseBlankGameMode"));
 
 	UFreeModeSoulsInfoComponent * cmp = Cast<UFreeModeSoulsInfoComponent>(bsGameMode->FindComponentByClass(UFreeModeSoulsInfoComponent::StaticClass()));
-	ensureMsg(bsGameMode != nullptr, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
+	ensureMsgf(bsGameMode != nullptr, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
 
 	if (cmp->GetSoulsAmount() - SoulsCost >= 0)
 	{

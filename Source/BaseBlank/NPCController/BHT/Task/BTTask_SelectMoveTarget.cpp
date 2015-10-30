@@ -3,7 +3,9 @@
 #include "BaseBlank.h"
 #include "BTTask_SelectMoveTarget.h"
 #include "AIController.h"
+#include "Waypoints/WaypointInteractionComponent.h"
 #include "Character/BaseCharacter.h"
+#include "BehaviorTree/Blackboard/BlackboardKeyType_Vector.h"
 #include "Character/Components/PathPointsComponent.h"
 
 UBTTask_SelectMoveTarget::UBTTask_SelectMoveTarget(const class FObjectInitializer& PCIP) : Super(PCIP)
@@ -49,8 +51,19 @@ EBTNodeResult::Type UBTTask_SelectMoveTarget::ExecuteTask(class UBehaviorTreeCom
             
             if(PathPoints.Num() != 0)
             {
-                OwnerComp.GetBlackboardComponent()->SetValueAsObject(TargetObject.GetSelectedKeyID(), PathPoints[currentPathIndex]);
-                OwnerComp.GetBlackboardComponent()->SetValueAsVector(TargetLocation.GetSelectedKeyID(), PathPoints[currentPathIndex]->GetActorLocation());
+                
+				OwnerComp.GetBlackboardComponent()->SetValueAsObject(TargetObject.GetSelectedKeyID(), PathPoints[currentPathIndex]);
+				UWaypointInteractionComponent * cmp = (UWaypointInteractionComponent *)PathPoints[currentPathIndex]->GetComponentByClass(UWaypointInteractionComponent::StaticClass());
+				
+				if (cmp)
+				{
+					OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Vector>(TargetLocation.GetSelectedKeyID(), cmp->StartInteractionPoint->GetComponentLocation());
+				}
+				else
+				{
+					OwnerComp.GetBlackboardComponent()->SetValue<UBlackboardKeyType_Vector>(TargetLocation.GetSelectedKeyID(), PathPoints[currentPathIndex]->GetActorLocation());
+				}
+				
                 result = EBTNodeResult::Type::Succeeded;
             }
             else

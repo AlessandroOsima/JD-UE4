@@ -52,12 +52,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
     ULifeComponent * LifeComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
 	UPowerInteractionsComponent * PowerInteractionsComponent;
-
-	//Collider used to handle collision between effects ONLY 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JD|Character Components")
-	UCapsuleComponent * PowerEffectsCollider;
     
 protected:
     static BaseCharacterBlackBoardKeys s_blackboardKeys;

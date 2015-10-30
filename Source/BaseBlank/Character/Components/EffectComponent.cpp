@@ -24,6 +24,68 @@ void UPowerInteractionsComponent::RemoveAllEffects()
 	}
 }
 
+bool UPowerInteractionsComponent::HasEffectOfClass(TSubclassOf<UBaseEffect> Class, bool AlsoChild, bool AlsoParent) const
+{
+	bool result = false;
+
+	for (auto effect : Effects)
+	{
+
+		result = result || Class == effect->GetClass();
+
+		if (AlsoChild)
+		{
+			result = result || Class->IsChildOf(effect->GetClass());
+		}
+
+		if (AlsoParent)
+		{
+			result = result || effect->GetClass()->IsChildOf(Class);
+		}
+
+	}
+
+	return result;
+}
+
+bool UPowerInteractionsComponent::HasEffects() const
+{
+	return Effects.Num() > 0;
+}
+
+UBaseEffect * UPowerInteractionsComponent::HigherPriorityEffect() const
+{
+	if (Effects.Num() == 0)
+		return nullptr;
+
+	UBaseEffect * highestPrio = Effects[0];
+	int32 prioVal = Effects[0]->Priority;
+
+	for (int i = 1; i < Effects.Num(); i++)
+	{
+		if (Effects[i]->Priority > prioVal)
+		{
+			highestPrio = Effects[i];
+			prioVal = Effects[i]->Priority;
+		}
+	}
+
+	return highestPrio;
+}
+
+bool UPowerInteractionsComponent::HigherPriorityEffectIsOfClass(TSubclassOf<UBaseEffect> Class) const
+{
+	auto effect = HigherPriorityEffect();
+	bool isOfClass = false;
+
+	if (effect && effect->GetClass() == Class)
+	{
+		isOfClass = true;
+	}
+
+	return isOfClass;
+}
+
 void UPowerInteractionsComponent::AddShieldedPower(TSubclassOf<ABasePowerActor> shieldedPower)
 {
 	ShieldedFromPowers.Add(shieldedPower);

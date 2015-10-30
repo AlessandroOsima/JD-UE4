@@ -10,13 +10,18 @@
     <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-Shipping.exe" Type="Executable" />
     <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-Shipping.pdb" Type="SymbolFile" />
     <BuildProduct Path="$(EngineDir)\Plugins\2D\Paper2D\Binaries\Win64\BaseBlank-Paper2D-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Blendables\LightPropagationVolume\Binaries\Win64\BaseBlank-LightPropagationVolumeRuntime-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Experimental\CharacterAI\Binaries\Win64\BaseBlank-CharacterAI-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Experimental\HTML5Networking\Binaries\Win64\BaseBlank-HTML5Networking-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Media\WmfMedia\Binaries\Win64\BaseBlank-WmfMedia-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Messaging\UdpMessaging\Binaries\Win64\BaseBlank-UdpMessaging-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ArchVisCharacter\Binaries\Win64\BaseBlank-ArchVisCharacter-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\CableComponent\Binaries\Win64\BaseBlank-CableComponent-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\CustomMeshComponent\Binaries\Win64\BaseBlank-CustomMeshComponent-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ExampleDeviceProfileSelector\Binaries\Win64\BaseBlank-ExampleDeviceProfileSelector-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\LeapMotionController\Binaries\Win64\BaseBlank-LeapMotionController-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\OculusInput\Binaries\Win64\BaseBlank-OculusInput-Win64-Shipping.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\OculusLibrary\Binaries\Win64\BaseBlank-OculusLibrary-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\OculusRift\Binaries\Win64\BaseBlank-OculusRift-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ProceduralMeshComponent\Binaries\Win64\BaseBlank-ProceduralMeshComponent-Win64-Shipping.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\Steam\SteamVR\Binaries\Win64\BaseBlank-SteamVR-Win64-Shipping.lib" Type="StaticLibrary" />
@@ -26,16 +31,12 @@
   </BuildProducts>
   <RuntimeDependencies>
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2013/PhysX3PROFILE_x64.dll" />
-    <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2013/PhysX3GpuPROFILE_x64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2013/PhysX3CommonPROFILE_x64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2013/PhysX3CookingPROFILE_x64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2013/nvToolsExt64_1.dll" />
-    <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2013/PhysXDevice64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2013/APEX_ClothingPROFILE_x64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2013/APEX_DestructiblePROFILE_x64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2013/APEX_LegacyPROFILE_x64.dll" />
-    <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2013/APEX_LoaderPROFILE_x64.dll" />
-    <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2013/APEX_ParticlesPROFILE_x64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2013/ApexFrameworkPROFILE_x64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/Ogg/Win64/VS2013/libogg_64.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/Vorbis/Win64/VS2013/libvorbis_64.dll" />
@@ -44,5 +45,6 @@
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/OpenVR/OpenVRv000/Win64/openvr_api.dll" />
     <RuntimeDependency Path="$(EngineDir)/Binaries/ThirdParty/Steamworks/Steamv132/Win64/steam_api64.dll" />
   </RuntimeDependencies>
+  <AdditionalProperties />
   <bRequireDependenciesToExist>true</bRequireDependenciesToExist>
 </BuildReceipt>

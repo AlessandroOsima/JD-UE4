@@ -27,6 +27,9 @@ public:
     UPROPERTY(EditInstanceOnly, Category="Spawn")
     TArray<AActor *> PathPoints;
 
+	UPROPERTY(EditInstanceOnly, Category = "Spawn")
+	bool EnableSpawn = true;
+
 public :
     
     UPROPERTY(BlueprintReadWrite, EditAnywhere, Category="Spawn")

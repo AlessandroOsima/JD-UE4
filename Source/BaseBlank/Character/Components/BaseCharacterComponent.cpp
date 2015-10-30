@@ -18,7 +18,7 @@ void UBaseCharacterComponent::OnRegister()
     Super::OnRegister();
     
     m_owner = Cast<ABaseCharacter>(GetOwner());
-    ensureMsg(m_owner != nullptr, TEXT("[BaseCharacterComponent]No owner of type BaseCharacter found"));
+	ensureMsgf(m_owner != nullptr, TEXT("[BaseCharacterComponent]No owner of type BaseCharacter found"));
 }
 
 
@@ -26,7 +26,7 @@ void UBaseCharacterComponent::BeginPlay()
 {
     //UE_LOG(LogTemp, Log, TEXT("BeginPlay of Character Component"))
     m_ownerBlackboard = m_owner->GetBlackboard();
-    ensureMsg(m_ownerBlackboard != nullptr, TEXT("[BaseCharacterComponent]No blackboard component found"));
+	ensureMsgf(m_ownerBlackboard != nullptr, TEXT("[BaseCharacterComponent]No blackboard component found"));
     
     this->OnBeginPlay();
 }

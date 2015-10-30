@@ -2,6 +2,7 @@
 
 
 #include "BaseBlank.h"
+
 #include "Character/Components/BaseCharacterComponent.h"
 #include "Character/BaseCharacter.h"
 #include "Character/Configuration/CharacterConfigurationAsset.h"
@@ -17,7 +18,6 @@ ABaseCharacter::ABaseCharacter(const class FObjectInitializer& PCIP)
     PathPointsComponent = PCIP.CreateDefaultSubobject<UPathPointsComponent>(this, TEXT("PathPointsComponent"));
     LifeComponent = PCIP.CreateDefaultSubobject<ULifeComponent>(this, TEXT("LifeComponent"));
 	PowerInteractionsComponent = PCIP.CreateDefaultSubobject<UPowerInteractionsComponent>(this, TEXT("PowerComponent"));
-	PowerEffectsCollider = PCIP.CreateDefaultSubobject<UCapsuleComponent>(this, TEXT("PowerEffectsCollider"));
     
 	PowerInteractionsComponent->PrimaryComponentTick.bCanEverTick = true;
 	PowerInteractionsComponent->PrimaryComponentTick.bStartWithTickEnabled = true;
@@ -31,7 +31,7 @@ void ABaseCharacter::BeginPlay()
 {
     Super::BeginPlay();
     
-     ensureMsg(Configuration != nullptr, TEXT("[BaseCharacter]No valid configuration found"));
+     ensureMsgf(Configuration != nullptr, TEXT("[BaseCharacter]No valid configuration found"));
     
     if(Configuration != nullptr)
     {
@@ -42,7 +42,7 @@ void ABaseCharacter::BeginPlay()
     
     SpawnDefaultController();
     
-    ensureMsg(BHTAsset != nullptr,TEXT("[BaseCharacter]No bht asset found"));
+	ensureMsgf(BHTAsset != nullptr, TEXT("[BaseCharacter]No bht asset found"));
     
     /*
      HOWTO : Make a BHT/Blackboard couple work

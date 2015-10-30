@@ -64,17 +64,24 @@ ABasePowerActor * UPowerRayCasterComponent::GetActivePower()
 void UPowerRayCasterComponent::OnRegister()
 {
     Super::OnRegister();
-    
-    for(int i = 0; i < PowersClass.Num(); i++)
-    {
-        UClass * targetClass = *PowersClass[i];
-        
-        Powers.Add(GetWorld()->SpawnActor<ABasePowerActor>(targetClass,
-                                                           this->GetOwner()->GetTransform().GetLocation(),
-                                                           this->GetOwner()->GetTransform().Rotator()));
-    }
-    
-    SelectPower(StartWithSelectedPowerIndex);
+
+	for (int i = 0; i < PowersClass.Num(); i++)
+	{
+		UClass * targetClass = *PowersClass[i];
+
+		Powers.Add(GetWorld()->SpawnActor<ABasePowerActor>(targetClass,
+			this->GetOwner()->GetTransform().GetLocation(),
+			this->GetOwner()->GetTransform().Rotator()));
+	}
+
+	
+}
+
+void UPowerRayCasterComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	SelectPower(StartWithSelectedPowerIndex);
 
 	//Register to game mode souls info component
 	AGameMode * gm = GetWorld()->GetAuthGameMode();
@@ -87,7 +94,6 @@ void UPowerRayCasterComponent::OnRegister()
 	{
 		cmp->OnSoulsChange().AddUObject(this, &UPowerRayCasterComponent::OnGameModeSoulsChange);
 	}
-
 
 }
 
@@ -217,4 +223,16 @@ void UPowerRayCasterComponent::SelectPower(int32 _power)
 int32 UPowerRayCasterComponent::GetCurrentPowerIndex()
 {
     return m_currentPowerIndex;
+}
+
+FString UPowerRayCasterComponent::GetCurrentPowerName()
+{
+	FString powerName = "";
+
+	if (GetActivePower())
+	{
+		powerName = GetActivePower()->Name;
+	}
+
+	return powerName;
 }

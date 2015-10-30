@@ -21,7 +21,7 @@ void UBehaviourComponent::BeginPlay()
 	//This is initialization, we do not want to notify observers since CurrentBehavior is set to default invalid state until after this call
 	ComputeNPCBehaviour(false);
 
-	m_targetNPC->LifeComponent->OnLifeChange().AddUObject(this, &UBehaviourComponent::OnLifeValueChange);
+	LifeChangeDelegate = m_targetNPC->LifeComponent->OnLifeChange().AddUObject(this, &UBehaviourComponent::OnLifeValueChange);
 }
 
 void UBehaviourComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
@@ -74,7 +74,7 @@ void UBehaviourComponent::ComputeNPCBehaviour(bool DoNotifyObservers)
 					ensure(gameMode);
 
 					UFreeModeSoulsInfoComponent * cmp = Cast<UFreeModeSoulsInfoComponent>(gameMode->FindComponentByClass(UFreeModeSoulsInfoComponent::StaticClass()));
-					ensureMsg(gameMode, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
+					ensureMsgf(gameMode, TEXT("Current game mode has no UFreeModeSoulsInfoComponent"));
 
 					cmp->UseSoulsAmount(-m_targetNPC->Configuration->SoulsOnDeath);
 
@@ -152,6 +152,10 @@ void UBehaviourComponent::OnLifeValueChange(ABaseCharacter * Owner, float OldBeh
 void UBehaviourComponent::OnUnregister()
 {
 	Super::OnUnregister();
-	m_targetNPC->LifeComponent->OnLifeChange().RemoveUObject(this, &UBehaviourComponent::OnLifeValueChange);
+
+	if (m_targetNPC)
+	{
+		m_targetNPC->LifeComponent->OnLifeChange().Remove(LifeChangeDelegate);
+	}
 }
 

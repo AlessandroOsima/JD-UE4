@@ -60,10 +60,13 @@ void AJDDebuggingHUDComponent::DrawGameSpecificView(APlayerController* PC, class
 				FString name = "";
 				npc->GetName(name);
 
+				FString npcName = "";
+				npc->GetPawn()->GetName(npcName);
 
-				PrintString(DefaultContext, FString::Printf(TEXT("{white}NPC {green}%s {white}has behaviour {green}%s\n"), *name, *behaviorName));
 
-				ABaseCharacter * baseCharacter = Cast<ABaseCharacter>(npc->GetControlledPawn());
+				PrintString(DefaultContext, FString::Printf(TEXT("{white}NPC Controller{green}%s {white} with NPC{green} %s {white}has behaviour {green}%s\n"), *name, *npcName, *behaviorName));
+
+				ABaseCharacter * baseCharacter = Cast<ABaseCharacter>(npc->GetPawn());
 
 
 				for (UBaseEffect * effect : baseCharacter->PowerInteractionsComponent->Effects)

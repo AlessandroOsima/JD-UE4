@@ -31,6 +31,18 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "JD|Power Component")
 	void RemoveAllEffects();
 
+	UFUNCTION(BlueprintCallable, Category = "JD|Power Component")
+	bool HasEffectOfClass(TSubclassOf<UBaseEffect> Class, bool AlsoChild = true, bool AlsoParent = true) const;
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Power Component")
+	bool HasEffects() const;
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Power Component")
+	UBaseEffect * HigherPriorityEffect() const;
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Power Component")
+	bool HigherPriorityEffectIsOfClass(TSubclassOf<UBaseEffect> Class) const;
+
 	//Power Shield Interface
 
 	//This are the power actor that cannot influence this power

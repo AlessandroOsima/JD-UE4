@@ -10,7 +10,8 @@
 #include "Character/Configuration/CharacterConfigurationAsset.h"
 
 //Necessary to compile public FAssetTypeActions_Base
-#include "Slate.h"
+#include "SlateBasics.h"
+#include "SlateExtras.h"
 #include "EditorStyle.h"
 #include "Editor/UnrealEd/Classes/Settings/EditorLoadingSavingSettings.h"
 //

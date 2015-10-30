@@ -49,11 +49,16 @@ public:
     
     UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
     int32 GetCurrentPowerIndex();
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers Management")
+	FString GetCurrentPowerName();
     
     UPROPERTY(BlueprintReadOnly)
     TArray<class ABasePowerActor *> Powers;
     
     virtual void OnRegister() override;
+
+	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers Management")
 	void SelectNextUsablePower();

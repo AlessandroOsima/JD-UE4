@@ -3,21 +3,28 @@
 #include "BaseBlank.h"
 #include "NPCController/NPCController.h"
 #include "Character/BaseCharacter.h"
+#include "BehaviorTree/Blackboard/BlackboardKeyType_Object.h"
 #include "BTDecorator_StateCheck.h"
 
 
 UBTDecorator_StateCheck::UBTDecorator_StateCheck(const class FObjectInitializer& PCIP) : Super(PCIP)
 {
     NodeName = "Check If In State";
+
 	bNotifyBecomeRelevant = true;
 	bNotifyCeaseRelevant = true;
+
+	bAllowAbortNone = false;
+	bAllowAbortLowerPri = false;
+	bAllowAbortChildNodes = true;
+	FlowAbortMode = EBTFlowAbortMode::Self;
 }
 
 bool UBTDecorator_StateCheck::CanEnterInState(ABaseCharacter * _target, class UBehaviorTreeComponent & _ownerComp) const
 {
 	bool ConditionValue;
-    UBehaviourComponent * cmp = GetBehaviourComponent(_ownerComp);
-    
+	UBehaviourComponent * cmp = GetBehaviourComponent(_ownerComp);
+
     if(cmp->GetNPCBehaviour() == BehaviourToEnter)
     {
         ConditionValue  = true;
@@ -28,7 +35,7 @@ bool UBTDecorator_StateCheck::CanEnterInState(ABaseCharacter * _target, class UB
 	}
 
     
-	return ConditionValue;
+	return  ConditionValue;
 }
 
 FString UBTDecorator_StateCheck::GetStaticDescription() const
@@ -59,7 +66,7 @@ void UBTDecorator_StateCheck::OnBecomeRelevant(UBehaviorTreeComponent& OwnerComp
 
 	ensure(blk);
 
-	ABaseCharacter * target = Cast<ABaseCharacter>(blk->GetValueAsObject(TargetNPC.GetSelectedKeyID()));
+	ABaseCharacter * target = Cast<ABaseCharacter>(blk->GetValue<UBlackboardKeyType_Object>(TargetNPC.GetSelectedKeyID()));
 
 	ensure(target);
 	
@@ -76,7 +83,7 @@ void UBTDecorator_StateCheck::OnCeaseRelevant(UBehaviorTreeComponent& OwnerComp,
 
 	ensure(blk);
 
-	ABaseCharacter * target = Cast<ABaseCharacter>(blk->GetValueAsObject(TargetNPC.GetSelectedKeyID()));
+	ABaseCharacter * target = Cast<ABaseCharacter>(blk->GetValue<UBlackboardKeyType_Object>(TargetNPC.GetSelectedKeyID()));
 
 	ensure(target);
 

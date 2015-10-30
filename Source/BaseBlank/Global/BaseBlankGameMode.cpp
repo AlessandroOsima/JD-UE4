@@ -23,7 +23,11 @@ void ABaseBlankGameMode::HandleMatchIsWaitingToStart()
 
     for (TActorIterator<ASpawnPoint> It(World); It; ++It)
     {
-        It->Spawn();
+		if (It->EnableSpawn)
+		{
+			It->Spawn();
+		}
+		
     }
     
     Super::HandleMatchIsWaitingToStart();
@@ -87,7 +91,7 @@ int32 ABaseBlankGameMode::GetActiveEffectsCount()
 //Victory/Loss happens when there are no active effects, there are no more souls and the dead npcs are enough (or not) to win (or lose)
 bool ABaseBlankGameMode::Lost() const
 {
-	ensureMsg(GameModeConfig->VictoriesConditionNPCs.Num() != 0, TEXT("[ABaseBlankGameMode]No Specified victory conditions"));
+	ensureMsgf(GameModeConfig->VictoriesConditionNPCs.Num() != 0, TEXT("[ABaseBlankGameMode]No Specified victory conditions"));
     
 
 	bool soulsEmpty = SoulsManager->GetSoulsAmount() <= GameModeConfig->LoseConditionSouls;
@@ -122,7 +126,7 @@ bool ABaseBlankGameMode::Won() const
 FVictoryConditionsInfo & ABaseBlankGameMode::VictoryType() const
 {
     //You need a valid victory condition here. If you don't have one then wtf are you calling this function for ?
-    ensureMsg(GameModeConfig->VictoriesConditionNPCs.Num() != 0, TEXT("[ABaseBlankGameMode]No Specified victory conditions"));
+	ensureMsgf(GameModeConfig->VictoriesConditionNPCs.Num() != 0, TEXT("[ABaseBlankGameMode]No Specified victory conditions"));
     
 	FVictoryConditionsInfo & conditions = GameModeConfig->VictoriesConditionNPCs[0];
 

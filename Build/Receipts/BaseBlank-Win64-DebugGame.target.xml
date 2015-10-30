@@ -10,13 +10,17 @@
     <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-DebugGame.exe" Type="Executable" />
     <BuildProduct Path="$(ProjectDir)\Binaries\Win64\BaseBlank-Win64-DebugGame.pdb" Type="SymbolFile" />
     <BuildProduct Path="$(EngineDir)\Plugins\2D\Paper2D\Binaries\Win64\BaseBlank-Paper2D.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Blendables\LightPropagationVolume\Binaries\Win64\BaseBlank-LightPropagationVolumeRuntime.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Experimental\CharacterAI\Binaries\Win64\BaseBlank-CharacterAI.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Experimental\HTML5Networking\Binaries\Win64\BaseBlank-HTML5Networking.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Media\WmfMedia\Binaries\Win64\BaseBlank-WmfMedia.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Messaging\UdpMessaging\Binaries\Win64\BaseBlank-UdpMessaging.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ArchVisCharacter\Binaries\Win64\BaseBlank-ArchVisCharacter.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\CableComponent\Binaries\Win64\BaseBlank-CableComponent.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\CustomMeshComponent\Binaries\Win64\BaseBlank-CustomMeshComponent.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ExampleDeviceProfileSelector\Binaries\Win64\BaseBlank-ExampleDeviceProfileSelector.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\LeapMotionController\Binaries\Win64\BaseBlank-LeapMotionController.lib" Type="StaticLibrary" />
+    <BuildProduct Path="$(EngineDir)\Plugins\Runtime\OculusLibrary\Binaries\Win64\BaseBlank-OculusLibrary.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\OculusRift\Binaries\Win64\BaseBlank-OculusRift.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\ProceduralMeshComponent\Binaries\Win64\BaseBlank-ProceduralMeshComponent.lib" Type="StaticLibrary" />
     <BuildProduct Path="$(EngineDir)\Plugins\Runtime\Steam\SteamVR\Binaries\Win64\BaseBlank-SteamVR.lib" Type="StaticLibrary" />

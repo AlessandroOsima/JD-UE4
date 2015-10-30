@@ -11,11 +11,14 @@ UBTDecorator_BaseStateCheck::UBTDecorator_BaseStateCheck(const class FObjectInit
 {
     NodeName = "Base";
     TargetNPC.AddObjectFilter(this, ABaseCharacter::StaticClass());
+	bNotifyBecomeRelevant = true;
+	bNotifyCeaseRelevant = true;
 }
 
 void UBTDecorator_BaseStateCheck::InitializeFromAsset(class UBehaviorTree & _asset)
 {
     Super::InitializeFromAsset(_asset);
+
     
     UBlackboardData* BBAsset = GetBlackboardAsset();
     TargetNPC.CacheSelectedKey(BBAsset);

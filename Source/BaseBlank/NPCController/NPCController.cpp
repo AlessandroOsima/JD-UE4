@@ -1,13 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BaseBlank.h"
+#include "Navigation/CrowdFollowingComponent.h"
 #include "NPCController.h"
 #include "Character/BaseCharacter.h"
 
 NPCControllerBlackBoardKeys ANPCController::BlackboardKeys = NPCControllerBlackBoardKeys();
 
 ANPCController::ANPCController(const class FObjectInitializer& PCIP)
-	: Super(PCIP)
+	: Super(PCIP.SetDefaultSubobjectClass<UCrowdFollowingComponent>(TEXT("PathFollowingComponent")))
 {
     BHTComponent = PCIP.CreateDefaultSubobject<UBehaviorTreeComponent>(this, TEXT("BehaviorTreeComponent"));
     BlackboardComponent = PCIP.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackboardComponent"));
@@ -17,8 +18,24 @@ ANPCController::ANPCController(const class FObjectInitializer& PCIP)
 void ANPCController::BeginPlay()
 {
     Super::BeginPlay();
-    
-    ensureMsg(BHTAsset != nullptr,TEXT("[BaseCharacter]No bht asset found"));
+
+
+	//Detour crowds
+	UCrowdFollowingComponent * ccmp = Cast<UCrowdFollowingComponent>(GetPathFollowingComponent());
+
+	ensure(ccmp);
+
+	ccmp->SetCrowdAnticipateTurns(true);
+	ccmp->SetCrowdPathOffset(true);
+	ccmp->SetCrowdCollisionQueryRange(600);
+	ccmp->SetCrowdPathOptimizationRange(1500.f);
+	ccmp->SetCrowdSeparation(true);
+	ccmp->SetCrowdSeparationWeight(5.0f);
+	ccmp->SetCrowdAvoidanceQuality(ECrowdAvoidanceQuality::Low);
+	//ccmp->SetCrowdAvoidanceRangeMultiplier(2.0f);
+    ///
+
+	ensureMsgf(BHTAsset != nullptr, TEXT("[BaseCharacter]No bht asset found"));
     
     BlackboardComponent->InitializeBlackboard(*BlackboardAsset);
     
@@ -44,7 +61,7 @@ void ANPCController::SetupBlackboardKeys()
 
 void ANPCController::PushNewBHTAsset(UBehaviorTree* BHTAssetToLoad)
 {
-	ensureMsg(BHTAssetToLoad != nullptr, TEXT("BHT Asset does not exist"));
+	ensureMsgf(BHTAssetToLoad != nullptr, TEXT("BHT Asset does not exist"));
 
 	BHTComponent->StartTree(*BHTAssetToLoad);
 
@@ -81,7 +98,7 @@ void ANPCController::Possess(APawn *_pawn)
     }
     else
     {
-		ensureMsg(0, TEXT("[ANPCController]Possessing a non BaseCharacter Pawn, that doesn't sound good"));
+		ensureMsgf(0, TEXT("[ANPCController]Possessing a non BaseCharacter Pawn, that doesn't sound good"));
     }
 }
 

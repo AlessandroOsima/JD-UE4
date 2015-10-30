@@ -79,7 +79,7 @@ public:
 	bool ApplyEffectOnCharacter(TSubclassOf<UBaseEffect> Effect, ABaseCharacter * BaseCharacter);
 
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
-	bool ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> Effect);
+	bool ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> Effect, bool RemoveOtherEffects = true);
 
 	//If BaseCharacter is shielded from this power
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
