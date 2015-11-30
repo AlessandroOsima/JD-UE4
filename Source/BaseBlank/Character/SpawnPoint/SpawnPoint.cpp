@@ -17,8 +17,16 @@ void ASpawnPoint::Spawn()
     m_rotator = this->GetTransform().GetRotation().Rotator();
     m_position = this->GetTransform().GetLocation();
     
-    AActor * spawnedActor = GetWorld()->SpawnActor(CharacterToSpawn, &m_position, &m_rotator, FActorSpawnParameters());
-    ABaseCharacter * baseChr = Cast<ABaseCharacter>(spawnedActor);
-    baseChr->SetCharacterConfiguration(CharacterConfiguration);
-    baseChr->PathPointsComponent->SetPathPoints(PathPoints);
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.OverrideLevel = GetWorld()->GetCurrentLevel();
+	SpawnParams.SpawnCollisionHandlingOverride = CollisionHandlingOnSpawn;
+
+    AActor * spawnedActor = GetWorld()->SpawnActor(CharacterToSpawn, &m_position, &m_rotator, SpawnParams);
+   
+	if (spawnedActor)
+	{
+		ABaseCharacter * baseChr = Cast<ABaseCharacter>(spawnedActor);
+		baseChr->SetCharacterConfiguration(CharacterConfiguration);
+		baseChr->PathPointsComponent->SetPathPoints(PathPoints);
+	}
 }

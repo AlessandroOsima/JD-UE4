@@ -45,7 +45,7 @@ void UPowerRayCasterComponent::DoPowerRaycast()
 			boxColor = FColor::Red;
 		}
 
-		DrawDebugSolidBox(GetWorld(), res.ImpactPoint, FVector(15, 15, 15), boxColor);
+		//DrawDebugSolidBox(GetWorld(), res.ImpactPoint, FVector(15, 15, 15), boxColor);
     }
     
     DrawDebugLine(GetWorld(), location, endLocation, color);

@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "CameraPawn.generated.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(PlayerCamera, Log, All);
+
 UENUM(BlueprintType)
 enum class ECameraDirectionRotationType : uint8
 {
@@ -15,7 +17,6 @@ enum class ECameraDirectionRotationType : uint8
     ModelNoYaw, //Use object rotation for roll and pitch
     ModelNoRoll, //Use object rotation for yaw and pitch
 };
-
 
 class UPowerRayCasterComponent;
 
@@ -28,26 +29,6 @@ class BASEBLANK_API ACameraPawn : public APawn
 	GENERATED_UCLASS_BODY()
     
 public:
-    UPROPERTY(EditAnywhere, Category="Camera Step Rotation")
-    float RotationStepYaw = 0.5f;
-    
-    UPROPERTY(EditAnywhere, Category="Camera Step Rotation")
-    float RotationStepPitch = 0.5f;
- 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Yaw Rotation")
-	bool EnableYawRotation = true;
-
-	//The higher limit on roation angle allowed in the [270-360] range. PitchPositiveRange must be > PitchNegativeRange
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (ClampMin = "270.0", ClampMax = "360.0", UIMin = "270.0", UIMax = "360.0"), Category = "Pitch Rotation")
-	float PitchPositiveRange = 360;
-	
-	//The lower limit on roation angle allowed in the [270-360] range. PitchNegativeRange must be > PitchPositiveRange
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (ClampMin = "270.0", ClampMax = "360.0", UIMin = "270.0", UIMax = "360.0"), Category = "Pitch Rotation")
-	float PitchNegativeRange = 270;
-
-	//Enable rotation around pitch (z) axis
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Pitch Rotation")
-	bool EnablePitchRotation = true;
     
     UPROPERTY(EditAnywhere, Category="Camera")
     ECameraDirectionRotationType CameraForwardVector = ECameraDirectionRotationType::World;
@@ -57,6 +38,18 @@ public:
     
     UPROPERTY(EditAnywhere, Category="Camera")
     ECameraDirectionRotationType CameraUpVector = ECameraDirectionRotationType::World;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rotation")
+	float RotationStep = 90;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Rotation")
+	UCurveFloat * RotationStepOverInputStrenght;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Indicator Target")
+	APawn * Indicator;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Indicator Target")
+	FVector OffsetFromIndicator = FVector(0, -100, 50);
     
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Powers")
     UPowerRayCasterComponent * PowerService;
@@ -68,10 +61,39 @@ public:
     class UPawnMovementComponent * MovementComponent;
     
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Collision)
-    class UBoxComponent * BoxCollider;
+    class USphereComponent * SphereCollider;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Zoom")
+	int32 StartZoomDistance;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zoom")
+	float LowerZoomRangeCap;
 	
-    
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zoom")
+	float HigherZoomRangeCap;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zoom")
+	float ZoomAccelerationStep = 5.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Zoom")
+	float ZoomAccelerationMax = 200.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Zoom")
+	UCurveFloat * ZoomStepOverInputStrenght;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Collision")
+	TArray<TEnumAsByte<ECollisionChannel>> CameraCollisionChannels;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Collision")
+	bool DoComplexTrace = false;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Collision")
+	float ForwardRaycastSize = 5;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Collision")
+	float SideRaycastSize = 5;
+
+
     virtual void BeginPlay() override;
     virtual void SetupPlayerInputComponent(UInputComponent * _inputComponent) override;
     
@@ -79,7 +101,6 @@ public:
     void MoveSide(float _value);
     void MoveUp(float _value);
     void RotateZ(float _value);
-    void RotateY(float _value);
     void OnPowerUsed();
     void OnPowerNext();
     void OnPowerPrevious();
@@ -90,4 +111,15 @@ public:
 private:
     FVector TransformByCameraRotation(const FVector & _toTransform, ECameraDirectionRotationType _rotationType) const;
     
+	float RotationDirection = 0;
+	FRotator CurrentRotation{ 0, 0, 0 };
+
+	float ZoomDistance = 0;
+	float ZoomDirection = 0;
+	float ZoomSpeed = 0;
+	float ZoomAcceleration = 0;
+
+	int DebugPathLocationCounter = 0;
+
+	FVector OldIndicatorPosition;
 };

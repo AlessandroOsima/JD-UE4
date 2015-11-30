@@ -29,6 +29,9 @@ public:
 
 	UPROPERTY(EditInstanceOnly, Category = "Spawn")
 	bool EnableSpawn = true;
+	
+	UPROPERTY(EditAnywhere, Category = "Spawn")
+	TEnumAsByte<ESpawnActorCollisionHandlingMethod> CollisionHandlingOnSpawn = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 public :
     
