@@ -17,7 +17,7 @@ ABaseCharacter::ABaseCharacter(const class FObjectInitializer& PCIP)
     BlackboardComponent = PCIP.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackboardComponent"));
     PathPointsComponent = PCIP.CreateDefaultSubobject<UPathPointsComponent>(this, TEXT("PathPointsComponent"));
     LifeComponent = PCIP.CreateDefaultSubobject<ULifeComponent>(this, TEXT("LifeComponent"));
-	PowerInteractionsComponent = PCIP.CreateDefaultSubobject<UPowerInteractionsComponent>(this, TEXT("PowerComponent"));
+	PowerInteractionsComponent = PCIP.CreateDefaultSubobject<UCharPowerInteractionsComponent>(this, TEXT("PowerComponent"));
     
 	PowerInteractionsComponent->PrimaryComponentTick.bCanEverTick = true;
 	PowerInteractionsComponent->PrimaryComponentTick.bStartWithTickEnabled = true;
@@ -29,6 +29,8 @@ ABaseCharacter::ABaseCharacter(const class FObjectInitializer& PCIP)
 
 void ABaseCharacter::BeginPlay()
 {
+	SpawnDefaultController();
+
     Super::BeginPlay();
     
      ensureMsgf(Configuration != nullptr, TEXT("[BaseCharacter]No valid configuration found"));
@@ -39,8 +41,6 @@ void ABaseCharacter::BeginPlay()
         BHTAsset = Configuration->BehaviorTreeAsset;
 		PowerInteractionsComponent->ShieldedFromPowers = Configuration->ShieldedFromPowers;
     }
-    
-    SpawnDefaultController();
     
 	ensureMsgf(BHTAsset != nullptr, TEXT("[BaseCharacter]No bht asset found"));
     

@@ -3,6 +3,7 @@
 #include "Components/ActorComponent.h"
 #include "WaypointInteractionComponent.generated.h"
 
+class UIndicatorTargetComponent;
 
 //Interface for all interactions between a waypoint (like an house) and an actor
 UCLASS(ClassGroup = (JD), abstract, BlueprintType)
@@ -14,7 +15,11 @@ public:
 	DECLARE_MULTICAST_DELEGATE_TwoParams(FInteractionOver, UWaypointInteractionComponent *, APawn*);
 protected:
 
+	//Called when an interaction is over from the OnActorInteractionOver function
 	FInteractionOver InteractionOverEvent;
+
+	//Get The Indicator Target component from the Pawn or from the controller
+	UIndicatorTargetComponent * GetIndicatorComponentFromPawn(APawn * Pawn);
 
 public:
 
@@ -63,9 +68,13 @@ public:
 
 	virtual void OnRegister() override;
 
+	//The interaction is starting, notifies the indicator component if the actor or the controller has it 
 	virtual void Interact(APawn * Target);
 
 	virtual bool IsInteractionWithTargetOver(APawn * Target);
 
 	virtual bool IsInteractingWithTarget(APawn * Target);
+
+	//The interaction just ended
+	void OnActorInteractionOver(APawn * Target);
 };

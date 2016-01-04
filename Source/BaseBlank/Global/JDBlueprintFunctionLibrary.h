@@ -36,4 +36,24 @@ class BASEBLANK_API UJDBlueprintFunctionLibrary : public UBlueprintFunctionLibra
 	//Pop a bht from an NPCController controlled BaseCharacter
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers|Powers Utilities")
 	static bool PopBHTOnNPC(AActor * NPC);
+
+	//Get a power interactions component from an actor (if the actor has one)
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers|Powers Utilities")
+	static UPowerInteractionsComponent * GetPowerInteractionsComponent(AActor * Actor);
+
+	//Find out if an actor has a power interactions component
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers|Powers Utilities")
+	static bool HasPowerInteractionsComponent(AActor * Actor);
+
+	//Find all the actors with a PowerInteractionsComponent and add them to the ActorsWithPowerInteractions array
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers|Powers Utilities")
+	static void GetActorsWithPowerInteractionComponent(TArray<AActor *> AllActors, TArray<AActor*>& ActorsWithPowerInteractions);
+
+	//Find all the actors with a PowerInteractionsComponent and add them to the ActorsWithPowerInteractions array
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers|Powers Utilities")
+	static bool IsPowerEffect(AActor * PowerEffect);
+
+	//Find all the actors with a PowerInteractionsComponent and add them to the ActorsWithPowerInteractions array
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers|Powers Utilities")
+	static bool IsPowerActor(AActor * PowerActor);
 };

@@ -7,6 +7,7 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "NPCController/Components/BehaviourComponent.h"
+#include "Camera/Indicator/IndicatorTargetComponent.h"
 #include "NPCController.generated.h"
 
 /**
@@ -46,6 +47,9 @@ public:
     
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "JD|Controller Logic")
     UBehaviourComponent * BehaviourComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "JD|Controller Logic")
+	UIndicatorTargetComponent * TargetComponent;
     
     static NPCControllerBlackBoardKeys BlackboardKeys;
     

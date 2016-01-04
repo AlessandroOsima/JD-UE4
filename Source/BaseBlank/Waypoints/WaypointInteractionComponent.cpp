@@ -1,6 +1,35 @@
 #include "BaseBlank.h"
+#include "Camera/Indicator/IndicatorTargetComponent.h"
 #include "WaypointInteractionComponent.h"
 
+
+void UWaypointInteractionComponent::OnActorInteractionOver(APawn * Target)
+{
+	ensure(Target);
+
+	UIndicatorTargetComponent * indicatorTarget = GetIndicatorComponentFromPawn(Target);
+
+	if (indicatorTarget)
+	{
+		indicatorTarget->NotifyEndInteraction(*this);
+	}
+
+	InteractionOverEvent.Broadcast(this, Target);
+}
+
+UIndicatorTargetComponent * UWaypointInteractionComponent::GetIndicatorComponentFromPawn(APawn * Pawn)
+{
+	ensure(Pawn);
+
+	UIndicatorTargetComponent * indicatorTarget = (UIndicatorTargetComponent *)Pawn->GetComponentByClass(UIndicatorTargetComponent::StaticClass());
+
+	if (!indicatorTarget)
+	{
+		indicatorTarget = (UIndicatorTargetComponent *)Pawn->GetController()->GetComponentByClass(UIndicatorTargetComponent::StaticClass());
+	}
+
+	return indicatorTarget;
+}
 
 // Sets default values for this component's properties
 UWaypointInteractionComponent::UWaypointInteractionComponent(const FObjectInitializer & PCIP)
@@ -28,7 +57,14 @@ void UWaypointInteractionComponent::OnRegister()
 
 void UWaypointInteractionComponent::Interact(APawn * Target)
 {
+	ensure(Target);
 
+	UIndicatorTargetComponent * indicatorTarget = GetIndicatorComponentFromPawn(Target);
+
+	if (indicatorTarget)
+	{
+		indicatorTarget->NotifyStartInteraction(*this);
+	}
 }
 
 bool UWaypointInteractionComponent::IsInteractionWithTargetOver(APawn * Target)

@@ -27,7 +27,7 @@ void UHouseWPInteractionComponent::TickComponent(float DeltaTime, ELevelTick Tic
 
 void UHouseWPInteractionComponent::Interact(APawn * Target)
 {
-	ensure(Target);
+	Super::Interact(Target);
 
 	AHouseInteractableActor * houseActor = (AHouseInteractableActor *)Cast<AHouseInteractableActor>(GetOwner());
 
@@ -56,9 +56,4 @@ bool UHouseWPInteractionComponent::IsInteractingWithTarget(APawn * Target)
 	ensureMsgf(houseActor, TEXT("[HouseWPInteractionComponent] The house component needs an house interactable actor"));
 
 	return houseActor->GetPawn(Target) != nullptr;
-}
-
-void UHouseWPInteractionComponent::OnActorInteractionOver(APawn * Target)
-{
-	InteractionOverEvent.Broadcast(this, Target);
 }

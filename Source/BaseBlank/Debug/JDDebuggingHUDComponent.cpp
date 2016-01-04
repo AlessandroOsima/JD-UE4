@@ -7,7 +7,8 @@
 #include "Character/Effects/BaseEffect.h"
 #include "Character/Effects/BaseEffect.h"
 #include "JDDebuggingHUDComponent.h"
-
+#include "Camera/CameraPawn.h"
+#include "Camera/IndicatorPawn.h"
 
 
 
@@ -39,7 +40,48 @@ void AJDDebuggingHUDComponent::DrawGameSpecificView(APlayerController* PC, class
 				}
 			}
 
+			int id = 0;
+			for (ACameraPawn * camera : MyComp->JDCameraPawns)
+			{
+				
+				APawn * Indicator = camera->Indicator;
 
+				AIndicatorPawn * IndicatorPawn = Cast<AIndicatorPawn>(Indicator);
+
+				if (IndicatorPawn)
+				{
+					FString stateName;
+
+					switch (IndicatorPawn->GetIndicatorState())
+					{
+						case EIndicatorTargetingState::MoveToTarget :
+						{
+							stateName = "Move To Target";
+							break;
+						}
+
+						case EIndicatorTargetingState::NoTarget :
+						{
+							stateName = "No Target";
+							break;
+						}
+
+						case EIndicatorTargetingState::OnTarget :
+						{
+							stateName = "On Target";
+							break;
+						}
+					}
+
+					PrintString(DefaultContext, FString::Printf(TEXT("{white}Camera{green}: %d {white} has target {green}%s {white}with indicator in state {green}%s\n"), id, *Indicator->GetName(), *stateName));
+				}
+				else
+				{
+					PrintString(DefaultContext, FString::Printf(TEXT("{white}Camera{green}: %d {white} has target {green}%s\n"), id, *Indicator->GetName()));
+				}
+
+				id++;
+			}
 
 			TArray<ANPCController *> & npcs = MyComp->JDGameMode->GetNPCs();
 

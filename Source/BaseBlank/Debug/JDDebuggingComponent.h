@@ -4,6 +4,7 @@
 
 #include "GameplayDebuggingComponent.h"
 #include "Global/BaseBlankGameMode.h"
+#include "Camera/CameraPawn.h"
 #include "JDDebuggingComponent.generated.h"
 
 /**
@@ -22,5 +23,8 @@ public:
 
 	UPROPERTY(Replicated)
 	ABaseBlankGameMode * JDGameMode;
+
+	UPROPERTY(Replicated)
+	TArray<ACameraPawn *> JDCameraPawns;
 
 };

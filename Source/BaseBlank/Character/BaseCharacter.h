@@ -9,7 +9,7 @@
 #include "Character/Components/DamageInfo.h"
 #include "Components/PathPointsComponent.h"
 #include "Components/LifeComponent.h"
-#include "Components/EffectComponent.h"
+#include "Components/CharPowerInteractionsComponent.h"
 #include "BaseCharacter.generated.h"
 
 /**

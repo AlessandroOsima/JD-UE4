@@ -28,6 +28,4 @@ public:
 	virtual bool IsInteractionWithTargetOver(APawn * Target) override;
 
 	virtual bool IsInteractingWithTarget(APawn * Target) override;
-
-	virtual void OnActorInteractionOver(APawn * Target);
 };

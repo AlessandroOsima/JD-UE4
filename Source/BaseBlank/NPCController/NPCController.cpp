@@ -12,7 +12,8 @@ ANPCController::ANPCController(const class FObjectInitializer& PCIP)
 {
     BHTComponent = PCIP.CreateDefaultSubobject<UBehaviorTreeComponent>(this, TEXT("BehaviorTreeComponent"));
     BlackboardComponent = PCIP.CreateDefaultSubobject<UBlackboardComponent>(this, TEXT("BlackboardComponent"));
-    BehaviourComponent = PCIP.CreateDefaultSubobject<UBehaviourComponent>(this, TEXT("BehaviourCOmponent"));
+    BehaviourComponent = PCIP.CreateDefaultSubobject<UBehaviourComponent>(this, TEXT("BehaviourComponent"));
+	TargetComponent = PCIP.CreateDefaultSubobject<UIndicatorTargetComponent>(this, TEXT("TargetComponent"));
 }
 
 void ANPCController::BeginPlay()

@@ -206,7 +206,6 @@ void ACameraPawn::Tick(float _deltaTime)
 {
 	if (Indicator)
 	{
-
 		ensure(RotationStepOverInputStrenght);
 		ensure(ZoomStepOverInputStrenght);
 
@@ -267,8 +266,8 @@ void ACameraPawn::Tick(float _deltaTime)
 
 			if (GetWorld()->LineTraceSingleByObjectType(OutHit, GetActorLocation(), GetActorLocation() + TransformByCameraRotation(FVector(0, 0, -1), ECameraDirectionRotationType::Model) * FMath::Abs((GetActorLocation() - position).Z) * 2, ObjectParams, QueryParams))
 			{
-				FString LineTraceResult = FString::Printf(TEXT("FVector(0, 0, -1) > 0"));
-				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, LineTraceResult);
+				//FString LineTraceResult = FString::Printf(TEXT("FVector(0, 0, -1) > 0"));
+				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, LineTraceResult);
 
 				//DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation() + TransformByCameraRotation(FVector(0, 0, -1), ECameraDirectionRotationType::Model) * FMath::Abs((GetActorLocation() - position).Z) * 2, FColor::Green, true, 1.f);
 				//DrawDebugSolidBox(GetWorld(), OutHit.Location, FVector(0.1f, 0.1f, 0.1f), FColor::Blue, false, 5.f);
@@ -282,8 +281,8 @@ void ACameraPawn::Tick(float _deltaTime)
 				//DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation() + TransformByCameraRotation(FVector(0, 0, 1), ECameraDirectionRotationType::Model) * FMath::Abs((GetActorLocation() - position).Z) * 2, FColor::Green, true, 1.f);
 				//DrawDebugSolidBox(GetWorld(), OutHit.Location, FVector(0.1f, 0.1f, 0.1f), FColor::Blue, false, 5.f);
 
-				FString LineTraceResult = FString::Printf(TEXT("FVector(0, 0, 1) < 0"));
-				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, LineTraceResult);
+				//FString LineTraceResult = FString::Printf(TEXT("FVector(0, 0, 1) < 0"));
+				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, LineTraceResult);
 				
 
 				rayHits = rayHits | 1;
@@ -297,8 +296,8 @@ void ACameraPawn::Tick(float _deltaTime)
 				//DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation() + TransformByCameraRotation(FVector(0, 1, 0), ECameraDirectionRotationType::Model) * sidePositive.Size(), FColor::Red, true, 1.f);
 				//DrawDebugSolidBox(GetWorld(), GetActorLocation() + TransformByCameraRotation(FVector(0, 1, 0), ECameraDirectionRotationType::Model) * sidePositive.Size(), FVector(0.1f, 0.1f, 0.1f), FColor::Blue, false, 5.f);
 
-				FString LineTraceResult = FString::Printf(TEXT("FVector(0, 1, 0) > 0"));
-				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, LineTraceResult);
+				//FString LineTraceResult = FString::Printf(TEXT("FVector(0, 1, 0) > 0"));
+				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, LineTraceResult);
 
 				rayHits = rayHits | 1 << 2;
 			}
@@ -309,8 +308,8 @@ void ACameraPawn::Tick(float _deltaTime)
 				//DrawDebugLine(GetWorld(), GetActorLocation(), GetActorLocation() + TransformByCameraRotation(FVector(0, -1, 0), ECameraDirectionRotationType::Model) * sideNegative.Size(), FColor::Green, true, 1.f);
 				//DrawDebugSolidBox(GetWorld(), GetActorLocation() + TransformByCameraRotation(FVector(0, -1, 0), ECameraDirectionRotationType::Model) * sideNegative.Size() * 5, FVector(0.1f, 0.1f, 0.1f), FColor::Green, false, 5.f);
 
-				FString LineTraceResult = FString::Printf(TEXT("FVector(0, -1, 0) < 0"));
-				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, LineTraceResult);
+				//FString LineTraceResult = FString::Printf(TEXT("FVector(0, -1, 0) < 0"));
+				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, LineTraceResult);
 				
 				rayHits = rayHits | 1 << 3;
 			}

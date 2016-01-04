@@ -72,3 +72,53 @@ bool UJDBlueprintFunctionLibrary::PopBHTOnNPC(AActor * NPC)
 	return true;
 }
 
+UPowerInteractionsComponent * UJDBlueprintFunctionLibrary::GetPowerInteractionsComponent(AActor * Actor)
+{
+	ensure(Actor);
+
+	UPowerInteractionsComponent * cmp = (UPowerInteractionsComponent*)Actor->GetComponentByClass(UPowerInteractionsComponent::StaticClass());
+
+	return cmp;
+}
+
+bool UJDBlueprintFunctionLibrary::HasPowerInteractionsComponent(AActor * Actor)
+{
+	ensure(Actor);
+
+	return GetPowerInteractionsComponent(Actor) != nullptr;
+}
+
+void UJDBlueprintFunctionLibrary::GetActorsWithPowerInteractionComponent(TArray<AActor *> AllActors, TArray<AActor*>& ActorsWithPowerInteractions)
+{
+	for (auto * actor : AllActors)
+	{
+		if (actor->GetComponentByClass(UPowerInteractionsComponent::StaticClass()))
+		{
+			ActorsWithPowerInteractions.Add(actor);
+		}
+	}
+}
+
+bool UJDBlueprintFunctionLibrary::IsPowerEffect(AActor * PowerEffect)
+{
+	ensure(PowerEffect);
+
+    if (Cast<UBaseEffect>(PowerEffect))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool UJDBlueprintFunctionLibrary::IsPowerActor(AActor * PowerActor)
+{
+	ensure(PowerActor);
+
+	if (Cast<ABasePowerActor>(PowerActor))
+	{
+		return true;
+	}
+
+	return false;
+}
