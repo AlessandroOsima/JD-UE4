@@ -44,7 +44,7 @@ EBTNodeResult::Type UBTTask_FindNextPathPoint::ExecuteTask(class UBehaviorTreeCo
                 result = EBTNodeResult::Type::Succeeded;
             }
             
-            OwnerComp.GetBlackboardComponent()->SetValueAsInt(BlackboardKey.GetSelectedKeyID(), currentPathIndex);
+            OwnerComp.GetBlackboardComponent()->SetValueAsInt(BlackboardKey.SelectedKeyName, currentPathIndex);
         }
         else
         {
@@ -72,6 +72,6 @@ FString UBTTask_FindNextPathPoint::GetStaticDescription() const
 
 int32 UBTTask_FindNextPathPoint::GetCurrentPathIndex(const class UBehaviorTreeComponent & OwnerComp) const
 {
-    int currentPathIndex = OwnerComp.GetBlackboardComponent()->GetValueAsInt(BlackboardKey.GetSelectedKeyID());
+    int currentPathIndex = OwnerComp.GetBlackboardComponent()->GetValueAsInt(BlackboardKey.SelectedKeyName);
     return currentPathIndex;
 }

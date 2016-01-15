@@ -198,6 +198,19 @@ FString ABaseBlankGameMode::GetEndGameDescription()
 	return description;
 }
 
+bool ABaseBlankGameMode::SetPause(APlayerController* PC, FCanUnpause CanUnpauseDelegate /*= FCanUnpause()*/)
+{
+	bool result = Super::SetPause(PC, CanUnpauseDelegate);
+	OnPauseToggle(true);
+	return result;
+}
+
+void ABaseBlankGameMode::ClearPause()
+{
+	Super::ClearPause();
+	OnPauseToggle(false);
+}
+
 const TArray<UBaseEffect *> & ABaseBlankGameMode::GetActiveEffects() const
 {
 	return ActiveEffects;

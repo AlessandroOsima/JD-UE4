@@ -7,7 +7,7 @@
 UBTService_ApplyDamage::UBTService_ApplyDamage(const class FObjectInitializer& PCIP) : Super(PCIP)
 {
 	NodeName = "Apply Damage";
-	bIsInstanced = true;
+	bCreateNodeInstance = true;
 	BlackboardKey.AddObjectFilter(this, ABaseCharacter::StaticClass());
 }
 

@@ -45,9 +45,9 @@ void UWaypointInteractionComponent::BeginPlay()
 	ensureMsgf(EndInteractionPoint, TEXT("[UWaypointInteractionComponent] We are expecting to have interaction start and end points "));
 
 	EndInteractionPoint->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	EndInteractionPoint->bCanEverAffectNavigation = false;
+	EndInteractionPoint->SetCanEverAffectNavigation(false);
 	StartInteractionPoint->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	StartInteractionPoint->bCanEverAffectNavigation = true;
+	StartInteractionPoint->SetCanEverAffectNavigation(false);
 }
 
 void UWaypointInteractionComponent::OnRegister()

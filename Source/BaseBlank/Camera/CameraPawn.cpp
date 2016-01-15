@@ -3,6 +3,7 @@
 #include "BaseBlank.h"
 #include "CameraPawn.h"
 #include "Components/PowerRayCasterComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "IndicatorPawn.h"
 
 DEFINE_LOG_CATEGORY(PlayerCamera);
@@ -64,6 +65,9 @@ void ACameraPawn::SetupPlayerInputComponent(UInputComponent * _inputComponent)
     _inputComponent->BindAction("UsePower", IE_Pressed, this, &ACameraPawn::OnPowerUsed);
     _inputComponent->BindAction("PowerNext", IE_Pressed, this, &ACameraPawn::OnPowerNext);
     _inputComponent->BindAction("PowerPrev", IE_Pressed, this, &ACameraPawn::OnPowerPrevious);
+
+	auto & actionBinding = _inputComponent->BindAction("TogglePause", IE_Pressed, this, &ACameraPawn::OnTogglePause);
+	actionBinding.bExecuteWhenPaused = 1;
 
 	//Keyboard keys mapping to powers is done in tick, read the comments to know why
 }
@@ -483,6 +487,11 @@ void ACameraPawn::OnPowerNext()
 void ACameraPawn::OnPowerPrevious()
 {
     PowerService->SelectPreviousPower();
+}
+
+void ACameraPawn::OnTogglePause()
+{
+	UGameplayStatics::SetGamePaused(GetWorld(), !UGameplayStatics::IsGamePaused(GetWorld()));
 }
 
 UPawnMovementComponent * ACameraPawn::GetMovementComponent() const

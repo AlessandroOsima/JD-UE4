@@ -104,7 +104,8 @@ public:
     void OnPowerUsed();
     void OnPowerNext();
     void OnPowerPrevious();
-    
+	void OnTogglePause();
+
     virtual UPawnMovementComponent * GetMovementComponent() const override;
     virtual void Tick(float _deltaTime);
 

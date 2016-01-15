@@ -71,9 +71,9 @@ void ANPCController::PushNewBHTAsset(UBehaviorTree* BHTAssetToLoad)
 
 ABaseCharacter * ANPCController::GetBaseCharacter()
 {
-	ensure(this->GetControlledPawn());
+	ensure(this->GetPawn());
 
-	return Cast<ABaseCharacter>(this->GetControlledPawn());
+	return Cast<ABaseCharacter>(this->GetPawn());
 }
 
 void ANPCController::PopBHTAsset()

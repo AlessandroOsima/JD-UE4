@@ -89,7 +89,7 @@ void UBTTask_InteractWayPoint::OnInteractionWithWaypointOver(UWaypointInteractio
 
 	if (MyOwnerComp && TargetController == OwnerCotroller)
 	{
-		FinishLatentTask(MyOwnerComp, EBTNodeResult::Succeeded);
+		FinishLatentTask(*MyOwnerComp, EBTNodeResult::Succeeded);
 		InteractionComponent->OnInteractionOver().Remove(OnWaypointInteractionHandle);
 	}
 }

@@ -35,7 +35,7 @@ bool UBTDecorator_BaseStateCheck::CalculateRawConditionValue(class UBehaviorTree
     
     check(blk);
     
-    ABaseCharacter * target = Cast<ABaseCharacter>(blk->GetValueAsObject(TargetNPC.GetSelectedKeyID()));
+    ABaseCharacter * target = Cast<ABaseCharacter>(blk->GetValueAsObject(TargetNPC.SelectedKeyName));
     
     check(target);
     

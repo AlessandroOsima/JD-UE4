@@ -12,7 +12,8 @@
 				"CoreUObject",
 				"Engine",
 				"AIModule",
-				"GameplayDebugger"
+				"GameplayDebugger",
+				"UMG"
 			]
 		},
 		{
@@ -20,5 +21,13 @@
 			"Type": "Editor",
 			"LoadingPhase": "Default"
 		}
+	],
+	"TargetPlatforms": [
+		"LinuxNoEditor",
+		"MacNoEditor",
+		"PS4",
+		"WindowsNoEditor",
+		"XboxOne",
+		"HTML5"
 	]
 }

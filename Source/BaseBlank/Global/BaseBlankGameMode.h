@@ -80,6 +80,21 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "JD|Level Info")
 	const TArray<UBaseEffect *> & GetActiveEffects() const;
+
+	/** PAUSE OVERRIDES
+	* Overrides to hook in the OnPauseToggle event that can be used in BPs to do UI spawning on pause
+	*/
+	virtual bool SetPause(APlayerController* PC, FCanUnpause CanUnpauseDelegate = FCanUnpause()) override;
+
+	virtual void ClearPause() override;
+
+	/**
+	* Called when the game is entering or exiting a pause
+	* @param Paused if the game is paused or not
+	*/
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "JD|Game Mode Management")
+	void OnPauseToggle(bool Paused);
     
 private:
     

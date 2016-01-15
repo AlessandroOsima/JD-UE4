@@ -16,6 +16,8 @@ AHouseInteractableActor::AHouseInteractableActor(const FObjectInitializer & PCIP
 
 	SetRootComponent(ParticleSystem);
 
+	PrimaryActorTick.SetTickFunctionEnable(true);
+
 	PrimaryActorTick.bCanEverTick = true;
 	PrimaryActorTick.bStartWithTickEnabled = true;
 }
@@ -89,6 +91,8 @@ float AHouseInteractableActor::PawnRemainingTime(APawn* Pawn)
 void AHouseInteractableActor::BeginPlay()
 {
 	ensure(Configuration);
+
+	Super::BeginPlay();
 
 	ConfigurePowerInteractions(Configuration);
 }

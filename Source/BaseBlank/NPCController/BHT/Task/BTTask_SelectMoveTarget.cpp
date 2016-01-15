@@ -22,11 +22,11 @@ void UBTTask_SelectMoveTarget::InitializeFromAsset(class UBehaviorTree & _asset)
     
     UBlackboardData* BBAsset = GetBlackboardAsset();
     
-    TargetLocation.CacheSelectedKey(BBAsset);
+    TargetLocation.ResolveSelectedKey(*BBAsset);
     
-    TargetObject.CacheSelectedKey(BBAsset);
+    TargetObject.ResolveSelectedKey(*BBAsset);
     
-    TargetIndex.CacheSelectedKey(BBAsset);
+    TargetIndex.ResolveSelectedKey(*BBAsset);
 }
 
 EBTNodeResult::Type UBTTask_SelectMoveTarget::ExecuteTask(class UBehaviorTreeComponent  &OwnerComp, uint8 *NodeMemory)
@@ -52,7 +52,7 @@ EBTNodeResult::Type UBTTask_SelectMoveTarget::ExecuteTask(class UBehaviorTreeCom
             if(PathPoints.Num() != 0)
             {
                 
-				OwnerComp.GetBlackboardComponent()->SetValueAsObject(TargetObject.GetSelectedKeyID(), PathPoints[currentPathIndex]);
+				OwnerComp.GetBlackboardComponent()->SetValueAsObject(TargetObject.SelectedKeyName, PathPoints[currentPathIndex]);
 				UWaypointInteractionComponent * cmp = (UWaypointInteractionComponent *)PathPoints[currentPathIndex]->GetComponentByClass(UWaypointInteractionComponent::StaticClass());
 				
 				if (cmp)
@@ -87,7 +87,7 @@ EBTNodeResult::Type UBTTask_SelectMoveTarget::ExecuteTask(class UBehaviorTreeCom
 
 int32 UBTTask_SelectMoveTarget::GetCurrentPathIndex(const class UBehaviorTreeComponent & OwnerComp) const
 {
-    int currentPathIndex = OwnerComp.GetBlackboardComponent()->GetValueAsInt(TargetIndex.GetSelectedKeyID());
+    int currentPathIndex = OwnerComp.GetBlackboardComponent()->GetValueAsInt(TargetIndex.SelectedKeyName);
     return currentPathIndex;
 }
 
