@@ -14,11 +14,14 @@
 ABaseBlankGameMode::ABaseBlankGameMode(const class FObjectInitializer& PCIP)
 	: Super(PCIP)
 {
-    SoulsManager = PCIP.CreateDefaultSubobject<UFreeModeSoulsInfoComponent>(this, TEXT("Souls Manager"));
+	SoulsManager = PCIP.CreateDefaultSubobject<UFreeModeSoulsInfoComponent>(this, TEXT("Souls Manager"));
+	Unpauser.BindUObject(this, &ABaseBlankGameMode::UnpauserDelegate);
+	Pausers.Add(Unpauser);
 }
 
 void ABaseBlankGameMode::HandleMatchIsWaitingToStart()
 {
+	
     UWorld* World = GetWorld();
 
     for (TActorIterator<ASpawnPoint> It(World); It; ++It)
@@ -201,14 +204,32 @@ FString ABaseBlankGameMode::GetEndGameDescription()
 bool ABaseBlankGameMode::SetPause(APlayerController* PC, FCanUnpause CanUnpauseDelegate /*= FCanUnpause()*/)
 {
 	bool result = Super::SetPause(PC, CanUnpauseDelegate);
-	OnPauseToggle(true);
+	if (result)
+	{
+		OnPauseToggle(true);
+	}
 	return result;
 }
 
 void ABaseBlankGameMode::ClearPause()
 {
 	Super::ClearPause();
-	OnPauseToggle(false);
+
+	if (CanUnPause)
+	{
+		OnPauseToggle(false);
+	}
+}
+
+bool ABaseBlankGameMode::UnpauserDelegate()
+{
+	OnCanUnpause();
+	return CanUnPause;
+}
+
+void ABaseBlankGameMode::SetCanUnpause(bool CanUnpause)
+{
+	this->CanUnPause = CanUnPause;
 }
 
 const TArray<UBaseEffect *> & ABaseBlankGameMode::GetActiveEffects() const

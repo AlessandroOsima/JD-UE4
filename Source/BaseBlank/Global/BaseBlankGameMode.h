@@ -41,7 +41,6 @@ protected:
     UFreeModeSoulsInfoComponent * SoulsManager;
 
 public:
-    
 	UFUNCTION(BlueprintCallable, Category = "JD|Victory Conditions")
 	void AddActiveEffect(UBaseEffect * activeEffect);
 
@@ -88,6 +87,15 @@ public:
 
 	virtual void ClearPause() override;
 
+	bool UnpauserDelegate();
+
+	FCanUnpause Unpauser;
+
+	void SetCanUnpause(bool CanUnpause);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "JD|Game Mode Management")
+	void OnCanUnpause();
+
 	/**
 	* Called when the game is entering or exiting a pause
 	* @param Paused if the game is paused or not
@@ -99,5 +107,10 @@ public:
 private:
     
     void ListNPCS();
+
+protected:
+
+	UPROPERTY(BlueprintReadWrite, Category="Game Mode Management")
+	uint8 CanUnPause : 1;
     
 };

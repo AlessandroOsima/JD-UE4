@@ -338,7 +338,7 @@ void ACameraPawn::Tick(float _deltaTime)
 				FinalZoomDistance = ZoomDistance;
 
 				FString ConstraintType = FString::Printf(TEXT("constraint ZOOM"));
-				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, ConstraintType);
+				//GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, ConstraintType);
 			}
 
 			//Collision on Yaw rotation
