@@ -21,13 +21,6 @@ void UJDDebuggingComponent::CollectDataToReplicate(bool bCollectExtendedData)
 
 		JDGameMode = Cast<ABaseBlankGameMode>(GetWorld()->GetAuthGameMode());
 		
-		UWorld* World = GetWorld();
-
-		for (TActorIterator<ACameraPawn> It(World); It; ++It)
-		{
-			JDCameraPawns.Add(*It);
-		}
-
 		if (bCollectExtendedData)
 		{
 			// collect additional data for selected Pawn/AIController 

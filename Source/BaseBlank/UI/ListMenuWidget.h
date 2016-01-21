@@ -33,6 +33,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Menu")
 	void UpdateHoverData();
 
+	UPROPERTY(BlueprintReadWrite, Category="Menu")
+	UUserWidget * ParentMenu;
+
 	/**
 	* Register listeners on the buttons and the colors the menu buttons should have when selected or not
 	*

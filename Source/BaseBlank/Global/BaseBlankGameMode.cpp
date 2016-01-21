@@ -223,7 +223,7 @@ void ABaseBlankGameMode::ClearPause()
 
 bool ABaseBlankGameMode::UnpauserDelegate()
 {
-	OnCanUnpause();
+	//OnCanUnpause();
 	return CanUnPause;
 }
 

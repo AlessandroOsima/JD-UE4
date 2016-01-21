@@ -24,7 +24,5 @@ public:
 	UPROPERTY(Replicated)
 	ABaseBlankGameMode * JDGameMode;
 
-	UPROPERTY(Replicated)
-	TArray<ACameraPawn *> JDCameraPawns;
 
 };

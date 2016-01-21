@@ -41,10 +41,10 @@ void AJDDebuggingHUDComponent::DrawGameSpecificView(APlayerController* PC, class
 			}
 
 			int id = 0;
-			for (ACameraPawn * camera : MyComp->JDCameraPawns)
+			for (TActorIterator<ACameraPawn> It(GetWorld()); It; ++It)
 			{
 				
-				APawn * Indicator = camera->Indicator;
+				APawn * Indicator = It->Indicator;
 
 				AIndicatorPawn * IndicatorPawn = Cast<AIndicatorPawn>(Indicator);
 
