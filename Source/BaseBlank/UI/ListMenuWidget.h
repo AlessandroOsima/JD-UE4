@@ -66,6 +66,10 @@ public:
 	//Unregister the delegate on the menu buttons
 	virtual void NativeDestruct() override;
 
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Menu")
+	void LinkNavigationToListWidgets();
+
 private:
 	FSlateColor UnselectedColor;
 	FSlateColor SelectedColor;

@@ -116,3 +116,19 @@ void UListMenuWidget::NativeDestruct()
 	Super::NativeDestruct();
 }
 
+void UListMenuWidget::LinkNavigationToListWidgets()
+{
+	for (int i = 0; i < ListMenuButtons.Num(); i++)
+	{
+		if (i > 0)
+		{
+			ListMenuButtons[i].Button->Navigation->Up.Widget = ListMenuButtons[i - 1].Button;
+		}
+		
+		if(i < ListMenuButtons.Num() - 1)
+		{
+			ListMenuButtons[i].Button->Navigation->Down.Widget = ListMenuButtons[i + 1].Button;
+		}
+	}
+}
+
