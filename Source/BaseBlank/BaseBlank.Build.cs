@@ -6,7 +6,7 @@ public class BaseBlank : ModuleRules
 {
 	public BaseBlank(TargetInfo Target)
 	{
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "Slate", "SlateCore", "CoreUObject", "Engine", "InputCore", "AIModule", "UMG", "UE4Game" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "Slate", "SlateCore", "CoreUObject", "Engine", "InputCore", "GameplayTasks", "AIModule", "UMG", "UE4Game" });
 
 		//PrivateDependencyModuleNames.AddRange(new string[] {  });
 

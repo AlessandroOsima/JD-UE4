@@ -103,9 +103,9 @@ bool UPowerInteractionsComponent::IsShieldedFromPower(TSubclassOf<ABasePowerActo
 
 void UPowerInteractionsComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-	for (auto effect : Effects)
+	for (int i = 0; i < Effects.Num(); i++)
 	{
-		effect->Using(GetOwner(), DeltaTime);
+		Effects[i]->Using(GetOwner(), DeltaTime);
 	}
 }
 

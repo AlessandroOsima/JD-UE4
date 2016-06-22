@@ -24,7 +24,7 @@ ACameraPawn::ACameraPawn(const class FObjectInitializer& PCIP)
     
 	SphereCollider = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("BoxCollider"));
 	SphereCollider->SetSphereRadius(10);
-	SphereCollider->AttachTo(RootComponent);
+	SphereCollider->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform );
     
     PowerService = PCIP.CreateDefaultSubobject<UPowerRayCasterComponent>(this, TEXT("PowerRayCasterComponent"));
     PowerService->PrimaryComponentTick.bCanEverTick = true;

@@ -45,7 +45,7 @@ class BASEBLANK_API UZombieEffect : public UBaseEffect
 	void OnActorCollisionHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 
 	UFUNCTION(Category = "JD|Collision")
-	void OnActorBeginOverlap(AActor* OtherActor);
+	void OnActorBeginOverlap(AActor* OverlappedActor, AActor* OtherActor);
 	
 private:
 	float EffectTime = 0;

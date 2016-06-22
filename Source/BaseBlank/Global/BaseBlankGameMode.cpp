@@ -12,10 +12,10 @@
 #include "EngineUtils.h"
 
 ABaseBlankGameMode::ABaseBlankGameMode(const class FObjectInitializer& PCIP)
-	: Super(PCIP)
+	: Super(PCIP), CanUnPause(true)
 {
 	SoulsManager = PCIP.CreateDefaultSubobject<UFreeModeSoulsInfoComponent>(this, TEXT("Souls Manager"));
-	Unpauser.BindUObject(this, &ABaseBlankGameMode::UnpauserDelegate);
+	//Unpauser.BindUObject(this, &ABaseBlankGameMode::UnpauserDelegate);
 	Pausers.Add(Unpauser);
 }
 
@@ -213,18 +213,11 @@ bool ABaseBlankGameMode::SetPause(APlayerController* PC, FCanUnpause CanUnpauseD
 
 void ABaseBlankGameMode::ClearPause()
 {
-	Super::ClearPause();
-
 	if (CanUnPause)
 	{
+		Super::ClearPause();
 		OnPauseToggle(false);
 	}
-}
-
-bool ABaseBlankGameMode::UnpauserDelegate()
-{
-	//OnCanUnpause();
-	return CanUnPause;
 }
 
 void ABaseBlankGameMode::SetCanUnpause(bool CanUnpause)

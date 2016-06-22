@@ -7,6 +7,7 @@
 #include "JDBlueprintFunctionLibrary.generated.h"
 
 class UDamageInfo;
+
 /**
  * 
  */

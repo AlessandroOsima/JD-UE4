@@ -109,7 +109,7 @@ void UBTTService_FindNearestNPC::TickNode(UBehaviorTreeComponent& OwnerComp, uin
 		return;
 	}
 
-	FVector location = controller->GetControlledPawn()->GetActorLocation();
+	FVector location = controller->GetPawn()->GetActorLocation();
 
 	UE_VLOG_SEGMENT(OwnerComp.GetOwner(), NPCBHT, Log, OwnerComp.GetAIOwner()->GetControlledPawn()->GetActorLocation() + FVector(0, 0, 30), location + FVector(0, 0, 30), FColor::Green, TEXT("NPC Target"));
 	UE_VLOG_BOX(OwnerComp.GetOwner(), NPCBHT, Log, FBox(location - FVector(30.0f), location + FVector(30.0f)),FColor::Green, TEXT("NPC Target Position"));

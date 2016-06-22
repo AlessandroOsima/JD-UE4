@@ -87,19 +87,9 @@ public:
 
 	virtual void ClearPause() override;
 
-	bool UnpauserDelegate();
-
 	FCanUnpause Unpauser;
 
 	void SetCanUnpause(bool CanUnpause);
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "JD|Game Mode Management")
-	void OnCanUnpause();
-
-	/**
-	* Called when the game is entering or exiting a pause
-	* @param Paused if the game is paused or not
-	*/
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "JD|Game Mode Management")
 	void OnPauseToggle(bool Paused);
@@ -110,7 +100,7 @@ private:
 
 protected:
 
-	UPROPERTY(BlueprintReadWrite, Category="Game Mode Management")
-	uint8 CanUnPause : 1;
+	UPROPERTY(BlueprintReadWrite, Category="JD|Game Mode Management")
+	bool CanUnPause;
     
 };

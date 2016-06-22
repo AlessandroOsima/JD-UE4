@@ -139,7 +139,7 @@ void UZombieEffect::OnActorCollisionHit(AActor* SelfActor, AActor* OtherActor, F
 	}
 }
 
-void UZombieEffect::OnActorBeginOverlap(AActor* OtherActor)
+void UZombieEffect::OnActorBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
 	if (OtherActor && OtherActor != Owner)
 	{

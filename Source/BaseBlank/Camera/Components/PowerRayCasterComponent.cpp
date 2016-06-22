@@ -32,7 +32,7 @@ void UPowerRayCasterComponent::DoPowerRaycast()
     
     FHitResult res;
     
-    if(m_activePower != nullptr && GetWorld()->LineTraceSingle(res, location, endLocation, FloorRayTraceChannel.GetValue(), parm))
+    if(m_activePower != nullptr && GetWorld()->LineTraceSingleByChannel(res, location, endLocation, FloorRayTraceChannel.GetValue(), parm))
     {
         color = FColor::Green;
         
