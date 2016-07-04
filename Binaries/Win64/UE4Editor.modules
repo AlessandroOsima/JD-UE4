@@ -1,0 +1,9 @@
+{
+	"Changelist" : 3028348,
+	"BuildId" : "c1dc3529-283b-43f4-82b1-1f1836a78cd0",
+	"Modules" : 
+	{
+		"BaseBlankEditor" : "UE4Editor-BaseBlankEditor.dll",
+		"BaseBlank" : "UE4Editor-BaseBlank.dll"
+	}
+}
