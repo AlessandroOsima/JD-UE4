@@ -8,14 +8,8 @@ UBTService_ApplyDamage::UBTService_ApplyDamage(const class FObjectInitializer& P
 {
 	NodeName = "Apply Damage";
 	bCreateNodeInstance = true;
-	BlackboardKey.AddObjectFilter(this, ABaseCharacter::StaticClass());
 }
 
-
-void UBTService_ApplyDamage::InitializeFromAsset(UBehaviorTree& Asset)
-{
-	Super::InitializeFromAsset(Asset);
-}
 
 FString UBTService_ApplyDamage::GetStaticServiceDescription() const
 {
@@ -27,10 +21,7 @@ void UBTService_ApplyDamage::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* 
 
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 
-	UBlackboardComponent * blk = OwnerComp.GetBlackboardComponent();
-	ensure(blk);
-
-	ABaseCharacter * bch = Cast<ABaseCharacter>(blk->GetValue<UBlackboardKeyType_Object>(BlackboardKey.GetSelectedKeyID()));
+	ABaseCharacter * bch = Cast<ABaseCharacter>(OwnerComp.GetAIOwner()->GetControlledPawn());
 	ensure(bch);
 
 	bch->LifeComponent->ApplyDamage(DamageToApply);
