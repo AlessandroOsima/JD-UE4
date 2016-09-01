@@ -1,0 +1,9 @@
+{
+	"Changelist" : 3039270,
+	"BuildId" : "1e82a5d6-2797-4019-9437-9425b0147092",
+	"Modules" : 
+	{
+		"BaseBlankEditor" : "UE4Editor-BaseBlankEditor-Win64-DebugGame.dll",
+		"BaseBlank" : "UE4Editor-BaseBlank-Win64-DebugGame.dll"
+	}
+}

@@ -1,0 +1,168 @@
+{
+	"TargetName" : "BaseBlank",
+	"Platform" : "Win64",
+	"Configuration" : "Development",
+	"BuildId" : "b7e130f5-831d-4b2d-a449-782e3eed3c21",
+	"Version" : 
+	{
+		"MajorVersion" : 4,
+		"MinorVersion" : 11,
+		"PatchVersion" : 0,
+		"Changelist" : 0,
+		"IsLicenseeVersion" : 0,
+		"BranchName" : ""
+	},
+	"BuildProducts" :
+	[
+		{
+			"Path" : "$(ProjectDir)\\Binaries\\Win64\\BaseBlank.exe",
+			"Type" : "Executable"
+		},
+		{
+			"Path" : "$(ProjectDir)\\Binaries\\Win64\\BaseBlank.pdb",
+			"Type" : "SymbolFile"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\2D\\Paper2D\\Binaries\\Win64\\BaseBlank-Paper2D.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Blendables\\LightPropagationVolume\\Binaries\\Win64\\BaseBlank-LightPropagationVolumeRuntime.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Experimental\\CharacterAI\\Binaries\\Win64\\BaseBlank-CharacterAI.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Experimental\\HTML5Networking\\Binaries\\Win64\\BaseBlank-HTML5Networking.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Media\\WmfMedia\\Binaries\\Win64\\BaseBlank-WmfMedia.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Messaging\\UdpMessaging\\Binaries\\Win64\\BaseBlank-UdpMessaging.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\ArchVisCharacter\\Binaries\\Win64\\BaseBlank-ArchVisCharacter.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\CableComponent\\Binaries\\Win64\\BaseBlank-CableComponent.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\CustomMeshComponent\\Binaries\\Win64\\BaseBlank-CustomMeshComponent.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\ExampleDeviceProfileSelector\\Binaries\\Win64\\BaseBlank-ExampleDeviceProfileSelector.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\LeapMotionController\\Binaries\\Win64\\BaseBlank-LeapMotionController.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\OculusInput\\Binaries\\Win64\\BaseBlank-OculusInput.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\OculusLibrary\\Binaries\\Win64\\BaseBlank-OculusLibrary.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\OculusRift\\Binaries\\Win64\\BaseBlank-OculusRift.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\ProceduralMeshComponent\\Binaries\\Win64\\BaseBlank-ProceduralMeshComponent.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\Steam\\SteamVR\\Binaries\\Win64\\BaseBlank-SteamVR.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\Steam\\SteamVR\\Binaries\\Win64\\BaseBlank-SteamVRController.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Runtime\\WindowsMoviePlayer\\Binaries\\Win64\\BaseBlank-WindowsMoviePlayer.lib",
+			"Type" : "StaticLibrary"
+		},
+		{
+			"Path" : "$(EngineDir)\\Plugins\\Slate\\SlateRemote\\Binaries\\Win64\\BaseBlank-SlateRemote.lib",
+			"Type" : "StaticLibrary"
+		}
+	],
+	"RuntimeDependencies" :
+	[
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2015/PhysX3PROFILE_x64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2015/PhysX3PROFILE_x64.pdb"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2015/PhysX3CommonPROFILE_x64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2015/PhysX3CommonPROFILE_x64.pdb"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2015/PhysX3CookingPROFILE_x64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2015/PhysX3CookingPROFILE_x64.pdb"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/PhysX-3.3/Win64/VS2015/nvToolsExt64_1.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2015/APEX_ClothingPROFILE_x64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2015/APEX_ClothingPROFILE_x64.dll.pdb"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2015/APEX_DestructiblePROFILE_x64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2015/APEX_DestructiblePROFILE_x64.dll.pdb"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2015/APEX_LegacyPROFILE_x64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2015/APEX_LegacyPROFILE_x64.dll.pdb"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2015/ApexFrameworkPROFILE_x64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/PhysX/APEX-1.3/Win64/VS2015/ApexFrameworkPROFILE_x64.dll.pdb"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/Ogg/Win64/VS2015/libogg_64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/Vorbis/Win64/VS2015/libvorbis_64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/Vorbis/Win64/VS2015/libvorbisfile_64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/Steamworks/Steamv132/Win64/steam_api64.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/Leap/Win64/Leap.dll"
+		},
+		{
+			"Path" : "$(EngineDir)/Binaries/ThirdParty/OpenVR/OpenVRv000/Win64/openvr_api.dll"
+		}
+	]
+}

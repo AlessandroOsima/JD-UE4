@@ -1,0 +1,9 @@
+{
+	"Changelist" : 0,
+	"BuildId" : "64fdf2bf-3bfc-48c6-8eee-9b3afef33b16",
+	"Modules" : 
+	{
+		"BaseBlankEditor" : "UE4Editor-BaseBlankEditor-Win64-Debug.dll",
+		"BaseBlank" : "UE4Editor-BaseBlank-Win64-Debug.dll"
+	}
+}
