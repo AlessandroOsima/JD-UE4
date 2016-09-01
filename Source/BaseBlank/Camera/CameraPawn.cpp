@@ -372,14 +372,14 @@ void ACameraPawn::Tick(float _deltaTime)
 				direction.Normalize();
 				FinalLookAt = direction.Rotation();
 
-				FString RotationDirectionInformation = FString::Printf(TEXT("Hits %x"),rayHits );
+				/*FString RotationDirectionInformation = FString::Printf(TEXT("Hits %x"),rayHits );
 				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, RotationDirectionInformation);
 
 				FString RotationInformation = FString::Printf(TEXT("NextRotation Yaw %f, CurrentRotation Yaw %f Difference Yaw %f Chosen Yaw %f"), NextRotation.Yaw, CurrentRotation.Yaw, YawDiff, FinalRotation.Yaw);
 				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, RotationInformation);
 
 				FString ConstraintType = FString::Printf(TEXT("constraint ROTATION"));
-				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, ConstraintType);
+				GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Blue, ConstraintType);*/
 			}
 
 			//
