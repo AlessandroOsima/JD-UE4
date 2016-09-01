@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "NPCController/Components/BehaviourComponent.h"
 #include "Character/Components/EffectComponent.h"
 #include "CharPowerInteractionsComponent.generated.h"
 
