@@ -10,7 +10,7 @@
 
 void UPowerRayCasterComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-    if(m_activePower != nullptr)
+    if(m_activePower != nullptr && bEnablePowerRaycast)
     {
         //UE_LOG(LogTemp, Log, TEXT("Power index is %d"),m_currentPowerIndex);
         DoPowerRaycast();
@@ -174,7 +174,17 @@ void UPowerRayCasterComponent::UpdateUsablePowers()
 	}
 }
 
-void UPowerRayCasterComponent::OnGameModeSoulsChange(float oldSouls, float newSouls)
+void UPowerRayCasterComponent::SetActivePowerPosition(FVector Position)
+{
+	if (m_activePower != nullptr)
+	{
+		m_activePower->SetActorLocation(Position);
+
+		FColor boxColor = FColor::Green;
+	}
+}
+
+void UPowerRayCasterComponent::OnGameModeSoulsChange(float OldSouls, float NewSouls)
 {
 	UpdateUsablePowers();
 }

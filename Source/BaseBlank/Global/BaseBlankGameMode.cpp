@@ -55,7 +55,6 @@ void ABaseBlankGameMode::HandleMatchHasStarted()
 {
     Super::HandleMatchHasStarted();
     
-    SoulsManager->SetGameModeInfoConfig(GameModeConfig);
     ListNPCS();
 }
 
@@ -74,6 +73,13 @@ bool ABaseBlankGameMode::ReadyToEndMatch_Implementation()
     return false;
 }
 
+
+void ABaseBlankGameMode::StartPlay()
+{
+	SoulsManager->SetGameModeInfoConfig(GameModeConfig);
+
+	Super::StartPlay();
+}
 
 void ABaseBlankGameMode::AddActiveEffect(UBaseEffect * activeEffect)
 {

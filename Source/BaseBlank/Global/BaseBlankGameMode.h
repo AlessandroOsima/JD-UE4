@@ -41,6 +41,8 @@ protected:
     UFreeModeSoulsInfoComponent * SoulsManager;
 
 public:
+	virtual void StartPlay() override;
+
 	UFUNCTION(BlueprintCallable, Category = "JD|Victory Conditions")
 	void AddActiveEffect(UBaseEffect * activeEffect);
 

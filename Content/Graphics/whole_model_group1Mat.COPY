@@ -1,0 +1,47 @@
+Begin Object Class=Material Name="whole_model_group1Mat"
+   Begin Object Class=MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_0"
+   End Object
+   Begin Object Class=MaterialExpressionTextureSample Name="MaterialExpressionTextureSample_1"
+   End Object
+   Begin Object Class=MaterialExpressionVectorParameter Name="MaterialExpressionVectorParameter_0"
+   End Object
+   Begin Object Class=SceneThumbnailInfoWithPrimitive Name="SceneThumbnailInfoWithPrimitive_0"
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_0"
+      Texture=Texture2D'/Game/Graphics/onepointfive_texture.onepointfive_texture'
+      MaterialExpressionEditorX=-16
+      MaterialExpressionEditorY=224
+      MaterialExpressionGuid=BB31DB8F446B11EC23EA0CA80BECC038
+      Material=Material'whole_model_group1Mat'
+   End Object
+   Begin Object Name="MaterialExpressionTextureSample_1"
+      Texture=Texture2D'/Game/Graphics/onepointfive_spec.onepointfive_spec'
+      MaterialExpressionEditorX=-13
+      MaterialExpressionEditorY=470
+      MaterialExpressionGuid=8B5BEDAF4B5ED771B412D6954A3FC0C9
+      Material=Material'whole_model_group1Mat'
+   End Object
+   Begin Object Name="MaterialExpressionVectorParameter_0"
+      DefaultValue=(R=0.800000,G=0.800000,B=0.800000,A=0.000000)
+      ExpressionGUID=8E1F999447DF3A01FAC46AA04EFA900C
+      MaterialExpressionEditorX=-32
+      MaterialExpressionEditorY=-32
+      MaterialExpressionGuid=F93246504F77B7BD430D5489C4D8046F
+      Material=Material'whole_model_group1Mat'
+   End Object
+   Begin Object Name="SceneThumbnailInfoWithPrimitive_0"
+   End Object
+   BaseColor=(Expression=MaterialExpressionTextureSample'MaterialExpressionTextureSample_0',Mask=1,MaskR=1,MaskG=1,MaskB=1)
+   Specular=(Expression=MaterialExpressionTextureSample'MaterialExpressionTextureSample_1',Mask=1,MaskR=1,MaskG=1,MaskB=1)
+   EditorX=320
+   EditorY=96
+   Expressions(0)=MaterialExpressionTextureSample'MaterialExpressionTextureSample_0'
+   Expressions(1)=MaterialExpressionTextureSample'MaterialExpressionTextureSample_1'
+   Expressions(2)=MaterialExpressionVectorParameter'MaterialExpressionVectorParameter_0'
+   bCanMaskedBeAssumedOpaque=True
+   StateId=4EB7B0AB4A06B273F0BD1FA2AF8C0402
+   ReferencedTextureGuids(0)=543A1C5F44BFFFD0A73FCCAC7DB9CFF1
+   ReferencedTextureGuids(1)=34D7079E48D99F078F6D9E8341B5C8A1
+   ThumbnailInfo=SceneThumbnailInfoWithPrimitive'SceneThumbnailInfoWithPrimitive_0'
+   LightingGuid=5456BEAC4A8464F1F3093CA3538E18AB
+End Object

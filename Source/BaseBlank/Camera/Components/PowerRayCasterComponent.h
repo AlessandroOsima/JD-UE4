@@ -69,7 +69,15 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers Management")
 	void UpdateUsablePowers();
 
+	//Set the postion of the currently active power
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers Management")
+	void SetActivePowerPosition(FVector Position);
+
 	void OnGameModeSoulsChange(float oldSouls, float newSouls);
+
+	//Enable raycast from player camera to terrain channel
+	UPROPERTY(EditDefaultsOnly, Category = "JD|Powers Management")
+	bool bEnablePowerRaycast;
     
 private:
     
