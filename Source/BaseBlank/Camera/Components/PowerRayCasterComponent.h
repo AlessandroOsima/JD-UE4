@@ -19,16 +19,16 @@ class BASEBLANK_API UPowerRayCasterComponent : public UActorComponent
 
 public:
     
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Powers Management")
     float FloorTraceLenght = 9999.f;
     
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Powers Management")
     TEnumAsByte<ECollisionChannel> FloorRayTraceChannel = ECollisionChannel::ECC_Visibility;
     
-    UPROPERTY(EditDefaultsOnly)
+    UPROPERTY(EditDefaultsOnly, Category = "Powers Management")
     TArray<TSubclassOf<ABasePowerActor>> PowersClass;
     
-    UPROPERTY(EditDefaultsOnly)
+    UPROPERTY(EditDefaultsOnly, Category = "Powers Management")
     int32 StartWithSelectedPowerIndex = 0;
     
     UFUNCTION(BlueprintCallable, Category="JD|Powers Management")
@@ -53,7 +53,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers Management")
 	FString GetCurrentPowerName();
     
-    UPROPERTY(BlueprintReadOnly)
+    UPROPERTY(BlueprintReadOnly, Category = "Powers Management")
     TArray<class ABasePowerActor *> Powers;
     
     virtual void OnRegister() override;
@@ -71,12 +71,12 @@ public:
 
 	//Set the postion of the currently active power
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers Management")
-	void SetActivePowerPosition(FVector Position);
+	void SetActivePowerPosition(FVector Position, FRotator Rotation);
 
 	void OnGameModeSoulsChange(float oldSouls, float newSouls);
 
 	//Enable raycast from player camera to terrain channel
-	UPROPERTY(EditDefaultsOnly, Category = "JD|Powers Management")
+	UPROPERTY(EditDefaultsOnly, Category = "Powers Management")
 	bool bEnablePowerRaycast;
     
 private:

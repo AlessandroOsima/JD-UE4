@@ -1,6 +1,7 @@
 #include "BaseBlank.h"
 #include "Global/BaseBlankGameMode.h"
 #include "Global/GameModeInfo/FreeGameMode/FreeModeSoulsInfoComponent.h"
+#include "BasePowerDealer.h"
 #include "Character/BaseCharacter.h"
 #include "Character/Effects/BaseEffect.h"
 #include "BasePowerActor.h"
@@ -27,8 +28,8 @@ void ABasePowerActor::UnSelecting_Implementation()
 
 ABasePowerActor::ABasePowerActor(const FObjectInitializer & PCIP) : Super(PCIP), CanHaveChainedEffects(false)
 {
-	BoxCollider = PCIP.CreateDefaultSubobject<UBoxComponent>(this, TEXT("BoxCollider"));
-	BoxCollider->SetBoxExtent(FVector(1, 1, 1), true);
+	SphereCollider = PCIP.CreateDefaultSubobject<USphereComponent>(this, TEXT("SphereCollider"));
+	SphereCollider->SetSphereRadius(100);
 }
 
 void ABasePowerActor::SpendSouls()
@@ -78,25 +79,30 @@ bool ABasePowerActor::ApplyEffectOnCharacter(TSubclassOf<UBaseEffect> Effect, AB
 	return false;
 }
 
-bool ABasePowerActor::ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> Effect, bool RemoveOtherEffects)
+bool ABasePowerActor::ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> Effect, bool RemoveOtherEffects, bool OverrideObjectLocation, FVector OverrideLocation)
 {
-	TArray<FOverlapResult> overlaps;
 
-	BoxCollider->ComponentOverlapMulti(overlaps,
+
+	FVector location = OverrideObjectLocation ? SphereCollider->GetComponentLocation() : OverrideLocation;
+
+	//TArray<FOverlapResult> overlaps;
+	/*SphereCollider->ComponentOverlapMulti(overlaps,
 		this->GetWorld(),
-		BoxCollider->GetComponentLocation(),
-		BoxCollider->GetComponentRotation(), ECollisionChannel::ECC_Pawn,
-		FComponentQueryParams());
+		location,
+		SphereCollider->GetComponentRotation(), ECollisionChannel::ECC_Pawn,
+		FComponentQueryParams());*/
+
+	TArray<AActor * > overlappingActors;
+	SphereCollider->GetOverlappingActors(overlappingActors);
 
 	bool result = false;
 
-	if (overlaps.Num() > 0)
+	if (overlappingActors.Num() > 0)
 	{
-		for (int i = 0; i < overlaps.Num(); i++)
+		for (int i = 0; i < overlappingActors.Num(); i++)
 		{
-			//TODO: Handle with other actors than base character
-			AActor * hitTarget = overlaps[i].GetActor();
-
+			AActor * hitTarget = overlappingActors[i];
+    
 			if (!hitTarget)
 			{
 				result = result | false;
@@ -117,11 +123,37 @@ bool ABasePowerActor::ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> E
 	return result;
 }
 
+void ABasePowerActor::ApplyEffectBasedOnPowerStart(TSubclassOf<UBaseEffect> Effect, TSubclassOf<ABasePowerDealer> Dealer, FTransform NewOverrideTransform, bool RemoveOtherEffects /*= true*/, bool OverrideTransform /*= false*/)
+{
+	SpendSouls();
+
+	if (PowerStart == EPowerStart::Immediate)
+	{
+		ApplyEffectOnInteractableObject(Effect, RemoveOtherEffects);
+	}
+	else
+	{
+		FTransform TargetTransform = GetActorTransform();
+
+		if (OverrideTransform)
+		{
+			TargetTransform = NewOverrideTransform;
+		}
+
+		GetWorld()->SpawnActor<ABasePowerDealer>(*Dealer, TargetTransform, FActorSpawnParameters());
+	}
+}
+
 bool ABasePowerActor::CanBeUsedOnThisCharacter(ABaseCharacter * BaseCharacter)
 {
 	ensure(BaseCharacter);
 
 	return !BaseCharacter->PowerInteractionsComponent->IsShieldedFromPower(this->GetClass());
+}
+
+bool ABasePowerActor::CanBeUsedOnThisInteractable(UPowerInteractionsComponent * InteractableObject)
+{
+	return !InteractableObject->IsShieldedFromPower(this->GetClass());
 }
 
 bool ABasePowerActor::CanBeUsedOnThisCharacterWithoutLosing(ABaseCharacter * BaseCharacter)
@@ -153,29 +185,33 @@ bool ABasePowerActor::CanBeUsedOnValidTarget()
 	{
 		TArray<FOverlapResult> overlaps;
 
-		BoxCollider->ComponentOverlapMulti(overlaps,
+		SphereCollider->ComponentOverlapMulti(overlaps,
 			this->GetWorld(),
-			BoxCollider->GetComponentLocation(),
-			BoxCollider->GetComponentRotation(), ECollisionChannel::ECC_Pawn,
+			SphereCollider->GetComponentLocation(),
+			SphereCollider->GetComponentRotation(), ECollisionChannel::ECC_Pawn,
 			FComponentQueryParams());
 
 		if (overlaps.Num() > 0)
 		{
 			for (int i = 0; i < overlaps.Num(); i++)
 			{
-				//TODO: Handle with other actors than base character
-				ABaseCharacter * hitTarget = Cast<ABaseCharacter>(overlaps[i].GetActor());
+				UActorComponent * cmp = overlaps[i].GetActor()->GetComponentByClass(UPowerInteractionsComponent::StaticClass());
 
-				if (hitTarget)
+				if (cmp)
 				{
-					if (CanHaveChainedEffects)
+					UPowerInteractionsComponent * powerInteraction = Cast<UPowerInteractionsComponent>(cmp);
+
+					if (powerInteraction)
 					{
-						return CanBeUsedOnThisCharacter(hitTarget);
-					}
-					else
-					{
-						//If we have a hit and we have enough souls we still have to check if the character is not shielded and if no effect are already active
-						return hitTarget->PowerInteractionsComponent->Effects.Num() == 0 && CanBeUsedOnThisCharacter(hitTarget);
+						if (CanHaveChainedEffects)
+						{
+							return CanBeUsedOnThisInteractable(powerInteraction);
+						}
+						else
+						{
+							//If we have a hit and we have enough souls we still have to check if the character is not shielded and if no effect are already active
+							return powerInteraction->Effects.Num() == 0 && CanBeUsedOnThisInteractable(powerInteraction);
+						}
 					}
 				}
 			}

@@ -74,7 +74,7 @@ void AIndicatorPawn::Tick( float DeltaTime )
 		float distance = FVector::Dist(FVector(loc.X, loc.Y, loc.Z), FVector(this->GetActorLocation().X, this->GetActorLocation().Y, loc.Z));
 
 		FString string = FString::Printf(TEXT("Target pos %s, Indicator pos %s, Distance %f"), *Target->GetActorLocation().ToCompactString(), *GetActorLocation().ToCompactString(), distance);
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, string);
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, string);
 
 		if (State == EIndicatorTargetingState::OnTarget || distance < Tolerance)
 		{
@@ -88,7 +88,7 @@ void AIndicatorPawn::Tick( float DeltaTime )
 		}
 		else if (State == EIndicatorTargetingState::MoveToTarget)//Move to target if outside tolerance range and target is selected
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Indicator out of Tolerance range"));
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Indicator out of Tolerance range"));
 
 			float index = (distance / MaxDistance) - (Tolerance / MaxDistance);
 			float acceleration = AccelerationOverDistance->GetFloatValue(index);

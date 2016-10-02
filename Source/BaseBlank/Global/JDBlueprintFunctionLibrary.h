@@ -4,6 +4,7 @@
 
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "BehaviorTree/BehaviorTree.h"
+#include "Powers/BasePowerActor.h"
 #include "JDBlueprintFunctionLibrary.generated.h"
 
 class UDamageInfo;
@@ -57,4 +58,19 @@ class BASEBLANK_API UJDBlueprintFunctionLibrary : public UBlueprintFunctionLibra
 	//Find all the actors with a PowerInteractionsComponent and add them to the ActorsWithPowerInteractions array
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers|Powers Utilities")
 	static bool IsPowerActor(AActor * PowerActor);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers Utilities")
+	static bool IsAnInteractableObject(AActor * Actor);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	static void SetPowerStart(ABasePowerActor * Power, EPowerStart PowerStartInfo);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	static EPowerStart GetPowerStart(ABasePowerActor * Power);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	static void SetPowersStart(TArray<ABasePowerActor *> Powers, EPowerStart PowerStartInfo);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Raycast")
+	static bool DoTerrainRaycast(AActor * CastingActor, FVector StartLocation, FVector EndLocation, TEnumAsByte<ECollisionChannel> FloorChannel, FVector & TerrainLocation);
 };

@@ -28,11 +28,12 @@ void UPowerRayCasterComponent::DoPowerRaycast()
     
     FColor color = FColor::Red;
     
-    FCollisionQueryParams parm(FName(TEXT("JD Trace")),true);
-    
+	FCollisionObjectQueryParams params;
+	params.AddObjectTypesToQuery(FloorRayTraceChannel);
+
     FHitResult res;
     
-    if(m_activePower != nullptr && GetWorld()->LineTraceSingleByChannel(res, location, endLocation, FloorRayTraceChannel.GetValue(), parm))
+    if(m_activePower != nullptr && GetWorld()->LineTraceSingleByObjectType(res, location, endLocation, params))
     {
         color = FColor::Green;
         
@@ -47,7 +48,7 @@ void UPowerRayCasterComponent::DoPowerRaycast()
 
 		//DrawDebugSolidBox(GetWorld(), res.ImpactPoint, FVector(15, 15, 15), boxColor);
     }
-    
+	
     DrawDebugLine(GetWorld(), location, endLocation, color);
     
     DrawDebugLine(GetWorld(), location, location + FVector::UpVector * 10, FColor::Black);
@@ -174,11 +175,12 @@ void UPowerRayCasterComponent::UpdateUsablePowers()
 	}
 }
 
-void UPowerRayCasterComponent::SetActivePowerPosition(FVector Position)
+void UPowerRayCasterComponent::SetActivePowerPosition(FVector Position, FRotator Rotation)
 {
 	if (m_activePower != nullptr)
 	{
 		m_activePower->SetActorLocation(Position);
+		m_activePower->SetActorRotation(Rotation.Quaternion());
 
 		FColor boxColor = FColor::Green;
 	}

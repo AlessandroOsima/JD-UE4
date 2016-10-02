@@ -48,12 +48,30 @@ bool AVrCamera::DoTargetRaycast(FVector StartLocation, FVector EndLocation, TEnu
 	if (GetWorld()->LineTraceSingleByObjectType(OutHit, StartLocation, EndLocation, CollisionQueryParams))
 	{
 		DrawDebugLine(GetWorld(), StartLocation, OutHit.Location, FColor::Blue, false, -1.0f, 0, 1);
-		DrawDebugSphere(GetWorld(), OutHit.ImpactPoint, 100, 12, FColor::Red);
+		
+		if (PowerRaycaster->GetActivePower())
+		{
+			DrawDebugSphere(GetWorld(), OutHit.ImpactPoint, PowerRaycaster->GetActivePower()->SphereCollider->GetScaledSphereRadius(), 12, FColor::Red);
+		}
+		else
+		{
+			DrawDebugSphere(GetWorld(), OutHit.ImpactPoint, 100, 12, FColor::Red);
+		}
 
 		bLastPositionIsValid = true;
 		LastValidPosition = OutHit.ImpactPoint;
 
-		PowerRaycaster->SetActivePowerPosition(OutHit.ImpactPoint);
+		FVector direction = OutHit.ImpactPoint - StartLocation;
+		direction.Normalize();
+
+		if (bSpawnPowerOnEnd)
+		{
+			PowerRaycaster->SetActivePowerPosition(OutHit.ImpactPoint, direction.Rotation());
+		}
+		else
+		{
+			PowerRaycaster->SetActivePowerPosition(StartLocation, direction.Rotation());
+		}
 
 		//UE_LOG(LogTemp, Log, TEXT("Name %s"), *OutHit.Actor->GetName());
 

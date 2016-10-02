@@ -4,6 +4,7 @@
 #include "BehaviorTree/BehaviorTree.h"
 #include "Engine/Texture2D.h"
 #include "UMG.h"
+#include "BasePowerDealer.h"
 #include "UI/PowerWidget.h"
 #include "BasePowerActor.generated.h"
 
@@ -11,6 +12,13 @@
 class UPowerConfigurationAsset;
 class ABaseCharacter;
 class UBaseEffect;
+
+UENUM(BlueprintType)
+enum class EPowerStart : uint8
+{
+	Immediate, //The power is already where the target should be
+	Delayed //The Power has to move toward a target
+};
 
 /**
  * 
@@ -51,7 +59,11 @@ public:
     TSubclassOf<UPowerWidget> PowerWidget;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Power Components")
-	class UBoxComponent * BoxCollider;
+	class USphereComponent * SphereCollider;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Power Components")
+	EPowerStart PowerStart;
+
 public:
 	//Common Powers Interface used by the camera raycast component
 
@@ -79,11 +91,18 @@ public:
 	bool ApplyEffectOnCharacter(TSubclassOf<UBaseEffect> Effect, ABaseCharacter * BaseCharacter);
 
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
-	bool ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> Effect, bool RemoveOtherEffects = true);
+	bool ApplyEffectOnInteractableObject(TSubclassOf<UBaseEffect> Effect, bool RemoveOtherEffects = true, bool OverrideObjectLocation = false, FVector OverrideLocation = FVector::ZeroVector);
+
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	void ApplyEffectBasedOnPowerStart(TSubclassOf<UBaseEffect> Effect, TSubclassOf<ABasePowerDealer> Dealer, FTransform NewOverrideTransform, bool RemoveOtherEffects = true, bool OverrideTransform = false);
 
 	//If BaseCharacter is shielded from this power
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
 	bool CanBeUsedOnThisCharacter(ABaseCharacter * BaseCharacter);
+
+	//If InteractableObject is shielded from this power
+	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
+	bool CanBeUsedOnThisInteractable(UPowerInteractionsComponent * InteractableObject);
 
 	//if this power can be used on BaseCharacter without losing the level
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
@@ -100,5 +119,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "JD|Powers")
 	bool IsValidTarget(AActor * target);
+
+
 };
 

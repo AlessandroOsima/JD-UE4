@@ -38,5 +38,8 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "JD|Powers")
 	bool    bLastPositionIsValid;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "JD|Powers")
+	bool    bSpawnPowerOnEnd;
 	
 };
